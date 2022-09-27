@@ -1,0 +1,26 @@
+﻿@page "/"
+@inherits CancellableComponentBase
+@inject IPostService PostService;
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+@Guid.NewGuid().ToString()
+
+@foreach( var post in Posts) {
+    <div>@post.Title</div>
+}
+
+<div class="eric">boom</div>
+
+@code {
+    List<Post> Posts = new List<Post>();
+    
+
+    protected override async Task OnInitializedAsync() {
+        await foreach(var post in PostService.GetPostsAsync(0, 10, CancellationToken)) {
+            Posts.Add(post);
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

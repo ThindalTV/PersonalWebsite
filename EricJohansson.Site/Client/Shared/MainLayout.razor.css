@@ -1,0 +1,17 @@
+.page {
+    background-color: #FAFAFA;
+    height: 100vh;
+}
+
+.container {
+    background-color: #FFF;
+    height: 100vh;
+}
+
+.eric {
+    color: red;
+}
+
+::deep .eric {
+    color: green;
+}
