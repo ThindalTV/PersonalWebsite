@@ -1,0 +1,38 @@
+﻿@inherits CancellableComponentBase
+@using System.Collections.ObjectModel
+@using EricJohansson.Site.Client.Components
+
+@page "/Posts/{Date}"
+@inject IPostService PostService
+@inject NavigationManager NavigationManager
+
+<h3>List</h3>
+
+<PostsList Posts="@Posts" />
+
+@code {
+    [Parameter] public string? Date { get; set; }
+
+    List<Post> Posts = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        string[] dateParts = Date?.Split('-') ?? new string[0];
+
+        if (dateParts.Length != 2
+            || !int.TryParse(dateParts[0], out int year)
+            || !int.TryParse(dateParts[1], out int month)
+            || !DateTime.TryParse($"{year}-{month}-1", out _)
+        )
+        {
+            NavigationManager.NavigateTo("/Error");
+            return;
+        }
+
+        await foreach (var post in PostService.GetPostsAsync(year, month, CancellationToken))
+        {
+            Posts.Add(post);
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

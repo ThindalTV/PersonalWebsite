@@ -3,22 +3,19 @@
 @inject IPostService PostService;
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
 
-@Guid.NewGuid().ToString()
-
-@foreach( var post in Posts) {
-    <div>@post.Title</div>
-}
-
-<div class="eric">boom</div>
+<h1>INDEX!</h1>
+<List Date="@TodaysMonthToken" />
 
 @code {
     List<Post> Posts = new List<Post>();
-    
+
+    string TodaysMonthToken;
 
     protected override async Task OnInitializedAsync() {
-        await foreach(var post in PostService.GetPostsAsync(0, 10, CancellationToken)) {
+        TodaysMonthToken = $"{DateTime.Now.Year}-{DateTime.Now.Month}";
+
+        await foreach(var post in PostService.GetPostsPageAsync(0, 10, CancellationToken)) {
             Posts.Add(post);
             await InvokeAsync(StateHasChanged);
         }

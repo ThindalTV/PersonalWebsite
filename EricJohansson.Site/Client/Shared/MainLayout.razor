@@ -1,18 +1,22 @@
 ﻿@inherits LayoutComponentBase
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand">Eric Johansson</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link">About</a>
+            </div>
+        </div>
+    </div>
+</nav>
 <div class="page">
-    <main class="container">
-        <div class="row">
-            <div class="col col-xs-6">
-                @Body
-            </div>
-            <div class="col col-xs-6">
-                Dummy
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                Dummy2
-            </div>
-        </div>
-    </main>
+
+        <main class="container">
+            @Body
+        </main>
 </div>

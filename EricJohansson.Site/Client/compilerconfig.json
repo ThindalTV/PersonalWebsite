@@ -2,5 +2,9 @@
   {
     "outputFile": "Pages/index.razor.css",
     "inputFile": "Pages/index.razor.scss"
+  },
+  {
+    "outputFile": "Components/PostsList.Razor.css",
+    "inputFile": "Components/PostsList.Razor.scss"
   }
 ]
