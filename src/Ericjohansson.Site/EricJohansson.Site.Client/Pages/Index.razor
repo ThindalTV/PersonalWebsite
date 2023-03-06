@@ -1,0 +1,26 @@
+﻿@page "/"
+@using EricJohansson.Site.Shared.Interfaces.Blog
+
+@inject IPostService _postService
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<div style="border-color: red; border-width:2px;">
+    @output
+</div>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    MarkupString output = new MarkupString("Loading...");
+
+    protected override async Task OnInitializedAsync()
+    {
+        var post = await _postService.GetPost("1", default(CancellationToken));
+        output = new MarkupString(post.Title.ToString());
+    }
+}
