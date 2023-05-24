@@ -1,0 +1,40 @@
+﻿/*#musingsList .k-card {
+    margin-bottom: 1.5rem;
+    border: .1rem solid #0001;
+    border-width: 0 0 .1rem .1rem;
+    box-shadow: .05rem .1rem 10px #0001;
+    padding: 1rem;
+}*/
+
+.col {
+    margin-top: 2rem;
+    position: relative;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.k-card {
+    box-shadow: none !important;
+}
+
+.appearances .when {
+    text-align: right;
+}
+
+#socials {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+#socials li {
+    display: inline-block;
+    margin: 0 .5rem;
+}
+
+#socials li img {
+    max-height: 2rem;
+    max-width: 2rem;
+}

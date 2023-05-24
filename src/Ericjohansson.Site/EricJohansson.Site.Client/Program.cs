@@ -1,6 +1,5 @@
 using Ericjohansson.Site.Client;
-using Ericjohansson.Site.Client.Services;
-using EricJohansson.Site.Shared.Interfaces.Blog;
+using EricJohansson.Site.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -8,11 +7,9 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped<IPostService, RemotePostService>();
+builder.Services.AddServices("http://localhost:7215/api/");
 
-builder.Services.AddScoped<HttpClient>(sp => new HttpClient()
-{
-    BaseAddress = new Uri("http://localhost:7215/api/") // Azure functions endpoint
-});
+// Register the Telerik services.
+builder.Services.AddTelerikBlazor();
 
 await builder.Build().RunAsync();

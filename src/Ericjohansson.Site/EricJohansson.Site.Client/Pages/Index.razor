@@ -1,26 +1,130 @@
-﻿@page "/"
-@using EricJohansson.Site.Shared.Interfaces.Blog
+﻿@inherits CancellableComponentBase
+@page "/"
+@using EricJohansson.Site.Shared.Blazor;
+@using EricJohansson.Site.Shared.Interfaces.Blog;
+@using EricJohansson.Site.Shared.Interfaces.Schedule;
+@using EricJohansson.Site.Shared.Types.Blog;
+@using EricJohansson.Site.Shared.Types.Schedule;
 
 @inject IPostService _postService
+@inject IAppearanceService _appearanceService
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="row" id="hero">
+    <div class="col">
+        <h1>Eric Johansson</h1>
+        <p>
+            Developer. Gamer. Slave of cat.
+        </p>
+        <ul id="socials">
+            <li><a target="_blank" href="https://www.twitch.tv/thindal"><img src="https://clipartcraft.com/images/twitch-logo-png-round-3.png" /></a></li>
+            <li><a target="_blank" href="https://www.twitter.com/ericjohansson/"><img src="https://rogueracer.co.uk/wp-content/uploads/2019/06/123-1234348_twittericon-twitter-round-logo-png-transparent-background-png.jpg" /></a></li>
+        </ul>
+    </div>
+    <div class="col">
+        <img src="/img/Headshot.webp" />
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h2>Where to find me</h2>
+        @if (appearanceList == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <div class="k-card-list appearances">
+                @foreach (var a in appearanceList)
+                {
+                    var localTime = a.Time.ToLocalTime();
 
-Welcome to your new app.
+                    <TelerikCard Orientation="CardOrientation.Horizontal">
+                        <CardHeader>
+                            <CardTitle>@a.Location</CardTitle>
+                            <CardSubTitle>
+                                <div class="when">
+                                    @localTime.DayOfWeek.ToString().Substring(0, 3) @localTime.ToShortDateString()
+                                    @if (a.IncludesTime)
+                                    {
+                                        var timeStr = $"{localTime.Hour}:{localTime.Minute}";
+                                        <br />
 
-<div style="border-color: red; border-width:2px;">
-    @output
+                                        @timeStr
+                                    }
+                                </div>
+                            </CardSubTitle>
+                        </CardHeader>
+
+                        <CardBody>
+                            <p>@a.Description</p>
+                        </CardBody>
+                        @if (a.ImageUrl != null)
+                        {
+                            <CardImage Src="@a.ImageUrl" />
+                        }
+                    </TelerikCard>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="col">
+        <h2>Musings</h2>
+        <div id="musingsList" class="k-card-list">
+            @if (musingsList == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                @foreach (var m in musingsList)
+                {
+                    <TelerikCard Class="musing">
+                        @if (m.ImageUrl != null)
+                        {
+                            <CardHeader>
+                                <CardImage Src="@m.ImageUrl" />
+                            </CardHeader>
+                        }
+                        <CardBody>
+                            <CardTitle>@m.Title</CardTitle>
+                            @m.Summary
+                        </CardBody>
+                    </TelerikCard>
+
+                }
+            }
+        </div>
+    </div>
 </div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="row">
+    <div class="col">
+        <h2>So, who am I really?</h2>
+        <p>Yada yada blah blah blah</p>
+    </div>
+</div>
+
+@*<div class="row">
+    <div class="col">
+        <h2>Sessions I offer</h2>
+        THERE ARE NONE!
+    </div>
+</div>*@
 
 @code {
     MarkupString output = new MarkupString("Loading...");
+    IEnumerable<Appearance>? appearanceList = null;
+    IEnumerable<MusingListEntryDto>? musingsList = null;
+
 
     protected override async Task OnInitializedAsync()
     {
-        var post = await _postService.GetPost("1", default(CancellationToken));
-        output = new MarkupString(post.Title.ToString());
+        appearanceList = _appearanceService.GetNextMonthsAppearances(CancellationToken).ToBlockingEnumerable(CancellationToken);
+
+        var post = await _postService.GetPost("1", CancellationToken);
+        musingsList = _postService.GetLatestMusings(5, CancellationToken).ToBlockingEnumerable(CancellationToken);
     }
 }

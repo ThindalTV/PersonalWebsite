@@ -1,17 +1,26 @@
-﻿@inherits LayoutComponentBase
-
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+﻿@layout TelerikLayout
+@inherits LayoutComponentBase
+<header style="border-bottom: 1px solid #E9E6DF;">
+    <nav class="navbar sticky-top navbar-expand-lg" style="border-bottom: 1px solid #E9E6DF;">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between align-items-center" id="navbarSupportedContent">
+                <div>SOCIALS</div>
+                <div class="navbar-nav mx-auto text-md-center">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </div>
+                <div class="">
+                    SEARCH
+                </div>
+            </div>
         </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+    </nav>
+</header>
+<div class="container">
+    @Body
 </div>

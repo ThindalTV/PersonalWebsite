@@ -1,12 +1,6 @@
 ﻿using EricJohansson.Site.Shared.Interfaces.Blog;
+using EricJohansson.Site.Shared.Interfaces.Schedule;
 using EricJohansson.Site.Shared.Service;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EricJohansson.Site.Shared
 {
@@ -17,6 +11,7 @@ namespace EricJohansson.Site.Shared
             collection.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAdress) });
 
             collection.AddScoped<IPostService, StaticPostService>();
+            collection.AddScoped<IAppearanceService, StaticAppearanceService>();
 
             return collection;
         }

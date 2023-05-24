@@ -11,9 +11,10 @@ namespace EricJohansson.Site.Shared.Service
 {
     public class StaticPostService : IPostService
     {
-        public Task<Post> GetPost(string id, CancellationToken cancellationToken)
+        public async Task<Post?> GetPost(string id, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new Post()
+            await Task.CompletedTask;
+            return new Post()
             {
                 Slug = $"TestPost-Single",
                 Created = new DateTime(2022, 09, 27),
@@ -24,7 +25,7 @@ namespace EricJohansson.Site.Shared.Service
                 ContentRaw = "{ text: 'This is a static post content'}",
                 Tags = new string[] { "static", "test", "post" },
                 ImageUrl = null
-            });
+            };
         }
 
         public async IAsyncEnumerable<Post> GetPostsPageAsync(int page, int pageSize, [EnumeratorCancellation] CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
@@ -72,6 +73,17 @@ namespace EricJohansson.Site.Shared.Service
 
                 await Task.CompletedTask;
             }
+        }
+
+        public async IAsyncEnumerable<MusingListEntryDto> GetLatestMusings(int amount, [EnumeratorCancellation]CancellationToken token)
+        {
+            for(int i = 0; i < amount; i++)
+            {
+                if (token.IsCancellationRequested) yield break;
+                string num = (i+1).ToString();
+                yield return new MusingListEntryDto(num, DateOnly.FromDateTime(DateTime.Now), $"Musings{num}", null, $"Musings {num} title", $"Musings {num} summary");
+            }
+            await Task.CompletedTask;
         }
     }
 }
