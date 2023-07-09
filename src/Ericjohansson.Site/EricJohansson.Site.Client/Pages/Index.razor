@@ -1,152 +1,41 @@
-﻿@inherits CancellableComponentBase
-@page "/"
+﻿@page "/"
+@layout MainLayout
+
+@inherits CancellableComponentBase
+
 @using EricJohansson.Site.Shared.Blazor;
-@using EricJohansson.Site.Shared.Interfaces.Blog;
-@using EricJohansson.Site.Shared.Interfaces.Schedule;
-@using EricJohansson.Site.Shared.Types.Blog;
-@using EricJohansson.Site.Shared.Types.Schedule;
-@using Ericjohansson.Site.Client.Components.Layout
+@using Ericjohansson.Site.Client.Components.Layout;
+@using EricJohansson.Site.Client.Components.Content;
 
-@inject IPostService _postService
-@inject IAppearanceService _appearanceService
-
-<PageTitle>Index</PageTitle>
 <LayoutSetter>
     <HeaderContent>
-        <div class="container myhero">
-            <div class="row justify-content-between">
-                <div class="col-sm-12 col-lg-5">
-                    <TelerikCard>
-                        <CardBody>
-                            <h1>Hi, I'm Eric</h1>
-                            <ul id="titles">
-                                <li>Software Developer,</li>
-                                <li>Consultant,</li>
-                                <li>Educator,</li>
-                                <li>Slave of cat</li>
-                            </ul>
-                            <p>
-                                Back in 2003, I discovered .NET. Coming from a background of mostly using C++ for client- and PERL/ASP Classic for web-development, discovering and developing with .NET was like the clouds opening up and a ray of sunshine washing over me.
-                                Since then, I've been working with .NET in various forms, from ASP.NET WebForms to ASP.NET MVC to ASP.NET 5+, from Windows Forms to WPF to UWP, from WCF to WebAPI to gRPC, from SQL Server to MongoDB to CosmosDB.
-                            </p>
-                            <p>
-                                While I've dabbled with other languages and platforms since, .NET has been my home, and pulling me back in as my platform of choice.
-                            </p>
-                            <p>
-                                Today, my day job is running a consulting firm specializing in .NET development and Azure architecture.<br />
-                                At other times, I run an open, inclusive and educational twitch stream helping people experience and learn .NET.
-                            </p>
-                            <ul id="socials">
-                                <li><a target="_blank" href="https://www.linkedin.com/in/eric-r-johansson/"><img src="https://th.bing.com/th?id=AMMS_edf03e8364b4553818bb79cf092d0468&w=102&h=102&c=7&o=6&oif=webp&pid=SANGAM" /></a></li>
-                                <li><a target="_blank" href="https://www.github.com/thindaltv"><img src="https://cdn.freebiesupply.com/logos/large/2x/github-icon-logo-png-transparent.png" /></a></li>
-                                <li><a target="_blank" href="https://www.twitch.tv/thindal"><img src="https://clipartcraft.com/images/twitch-logo-png-round-3.png" /></a></li>
-                                <li><a target="_blank" href="https://www.twitter.com/ericjohansson/"><img src="https://rogueracer.co.uk/wp-content/uploads/2019/06/123-1234348_twittericon-twitter-round-logo-png-transparent-background-png.jpg" /></a></li>
-                            </ul>
-                        </CardBody>
-                    </TelerikCard>
-                </div>
-                <div class="col-sm-12 col-lg-5">
-                    <TelerikCard>
-                        <CardBody>
-                            <img src="/img/Headshot.webp" />
-                        </CardBody>
-                    </TelerikCard>
-                </div>
-                <!--
-                </div>
-                <div class="d-none d-lg-block col-lg-5" id="headshot">
-
-                </div>-->
-            </div>
-        </div>
+        <PresentationHeader />
     </HeaderContent>
 </LayoutSetter>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h2>Where to find me</h2>
-            @if (appearanceList == null)
-            {
-                <p><em>Loading...</em></p>
-            }
-            else
-            {
-                <div class="k-card-list appearances">
-                    @foreach (var a in appearanceList)
-                    {
-                        var localTime = a.Time.ToLocalTime();
 
-                        <TelerikCard Orientation="CardOrientation.Horizontal">
-                            <CardHeader>
-                                <CardTitle>@a.Location</CardTitle>
-                                <CardSubTitle>
-                                    <div class="when">
-                                        @localTime.DayOfWeek.ToString().Substring(0, 3) @localTime.ToShortDateString()
-                                        @if (a.IncludesTime)
-                                        {
-                                            var timeStr = $"{localTime.Hour}:{localTime.Minute}";
-                                            <br />
+<main id="content">
+    <section>
+        <h2>Where to find me</h2>
+        <Appearances />
+    </section>
+    <section>
+        <h2>Musings</h2>
+        <Musings />
+    </section>
+</main>
 
-                                            @timeStr
-                                        }
-                                    </div>
-                                </CardSubTitle>
-                            </CardHeader>
+<aside id="contributions">
+    <h2>My contributions</h2>
 
-                            <CardBody>
-                                <p>@a.Description</p>
-                            </CardBody>
-                            @if (a.ImageUrl != null)
-                            {
-                                <CardImage Src="@a.ImageUrl" />
-                            }
-                        </TelerikCard>
-                    }
-                </div>
-            }
-        </div>
+    <h3>Nuget packages</h3>
 
-        <div class="col">
-            <h2>Musings</h2>
-            <div id="musingsList" class="k-card-list">
-                @if (musingsList == null)
-                {
-                    <p><em>Loading...</em></p>
-                }
-                else
-                {
-                    @foreach (var m in musingsList)
-                    {
-                        <TelerikCard Class="musing">
-                            @if (m.ImageUrl != null)
-                            {
-                                <CardHeader>
-                                    <CardImage Src="@m.ImageUrl" />
-                                </CardHeader>
-                            }
-                            <CardBody>
-                                <CardTitle>@m.Title</CardTitle>
-                                @m.Summary
-                            </CardBody>
-                        </TelerikCard>
+    <h3>Extensions</h3>
 
-                    }
-                }
-            </div>
-        </div>
-    </div>
-</div>
+    <h3>Other projects</h3>
+</aside>
+
+<footer>
+</footer>
 @code {
-    MarkupString output = new MarkupString("Loading...");
-    IEnumerable<Appearance>? appearanceList = null;
-    IEnumerable<MusingListEntryDto>? musingsList = null;
 
-
-    protected override async Task OnInitializedAsync()
-    {
-        appearanceList = _appearanceService.GetNextMonthsAppearances(CancellationToken).ToBlockingEnumerable(CancellationToken);
-
-        var post = await _postService.GetPost("1", CancellationToken);
-        musingsList = _postService.GetLatestMusings(5, CancellationToken).ToBlockingEnumerable(CancellationToken);
-    }
 }

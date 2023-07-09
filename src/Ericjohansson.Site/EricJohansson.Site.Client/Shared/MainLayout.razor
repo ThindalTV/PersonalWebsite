@@ -1,40 +1,23 @@
 ﻿@layout TelerikLayout
 @inherits LayoutComponentBase
 
+<div id="fullContainer">
+    <section id="head">
+        HEAD
+    </section>
 
-@if (HeaderFragment != null)
-{
-    <header>
+    @if (HeaderFragment != null)
+    {
         @HeaderFragment
-    </header>
-}
+    }
 
-<!--<header style="border-bottom: 1px solid #E9E6DF;">
-    <nav class="navbar sticky-top navbar-expand-lg" style="border-bottom: 1px solid #E9E6DF;">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between align-items-center" id="navbarSupportedContent">
-                <div>SOCIALS</div>
-                <div class="navbar-nav mx-auto text-md-center">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </div>
-                <div class="">
-                    SEARCH
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>-->
-<CascadingValue Value="this">
-    <main>
-        @Body
-    </main>
-</CascadingValue>
+    <CascadingValue Value="this">
+        <main>
+            @Body
+        </main>
+    </CascadingValue>
+</div>
+
 
 
 @code {

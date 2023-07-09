@@ -6,7 +6,7 @@ namespace Ericjohansson.Site.Client.Components.Layout;
 public class LayoutSetter : ComponentBase
 {
     [CascadingParameter]
-    public SecondLayout MainLayout { get; set; } = null!;
+    public MainLayout MainLayout { get; set; } = null!;
 
     [Parameter]
     public RenderFragment? HeaderContent { get; set; }
