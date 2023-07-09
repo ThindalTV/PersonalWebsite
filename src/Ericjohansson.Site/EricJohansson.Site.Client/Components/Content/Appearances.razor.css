@@ -1,0 +1,21 @@
+ul {
+    list-style: none;
+}
+
+li {
+    margin: 1rem 0 1rem 0;
+    padding-left: 1rem;
+    font-weight: bold;
+    border-left: .75rem solid;
+    position: relative;
+    height: 5rem;
+    display: grid;
+    grid-template-columns: 4fr 5rem;
+
+}
+
+.appearanceImage {
+    width: 5rem;
+    height: 5rem;
+    margin-right: 0;
+}

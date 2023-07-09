@@ -1,6 +1,15 @@
 ﻿@layout TelerikLayout
 @inherits LayoutComponentBase
-<header style="border-bottom: 1px solid #E9E6DF;">
+
+
+@if (HeaderFragment != null)
+{
+    <header>
+        @HeaderFragment
+    </header>
+}
+
+<!--<header style="border-bottom: 1px solid #E9E6DF;">
     <nav class="navbar sticky-top navbar-expand-lg" style="border-bottom: 1px solid #E9E6DF;">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +29,23 @@
             </div>
         </div>
     </nav>
-</header>
-<div class="container">
-    @Body
-</div>
+</header>-->
+<CascadingValue Value="this">
+    <main>
+        @Body
+    </main>
+</CascadingValue>
+
+
+@code {
+    private RenderFragment? HeaderFragment;
+
+    public void SetHeader(RenderFragment? header)
+    {
+        HeaderFragment = header;
+
+        StateHasChanged();
+
+        Console.WriteLine("Updated header!");
+    }
+}

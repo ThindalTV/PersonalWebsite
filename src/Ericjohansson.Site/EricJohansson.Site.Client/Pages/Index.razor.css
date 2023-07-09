@@ -6,8 +6,16 @@
     padding: 1rem;
 }*/
 
-.col {
-    margin-top: 2rem;
+#headshot {
+    background-color: green;
+    padding: 0px;
+}
+
+#hero > div {
+    background-color: white;
+    border: 1px solid purple;
+    margin-top: 5rem;
+    box-shadow: 1px 1px 5px purple;
     position: relative;
 }
 
@@ -23,18 +31,29 @@ h1, h2 {
     text-align: right;
 }
 
+#intro {
+    padding-bottom: 3rem;
+}
+
 #socials {
     position: absolute;
     bottom: 0px;
     right: 0px;
 }
 
-#socials li {
-    display: inline-block;
-    margin: 0 .5rem;
-}
+    #socials li {
+        display: inline-block;
+        margin: 0 .5rem;
+    }
 
-#socials li img {
-    max-height: 2rem;
-    max-width: 2rem;
+        #socials li img {
+            max-height: 2rem;
+            max-width: 2rem;
+        }
+
+#titles li {
+    list-style: none;
+    display: inline-block;
+    margin: .1rem;
+    font-weight: bold;
 }

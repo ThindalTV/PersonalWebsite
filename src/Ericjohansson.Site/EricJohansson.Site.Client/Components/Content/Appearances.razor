@@ -1,0 +1,67 @@
+﻿@using EricJohansson.Site.Shared.Blazor;
+@using EricJohansson.Site.Shared.Interfaces.Schedule;
+@using EricJohansson.Site.Shared.Types.Schedule;
+
+@namespace EricJohansson.Site.Client.Components.Content
+
+@inherits CancellableComponentBase
+@inject IAppearanceService _appearanceService
+
+<ul>
+    @if (_appearances == null)
+    {
+        @for (int i = 0; i < 10; i++)
+        {
+            <li>
+                <TelerikSkeleton ShapeType="@SkeletonShapeType.Rectangle" AnimationType="@SkeletonAnimationType.Wave" Height="50px" />
+            </li>
+        }
+    }
+    else
+    {
+        @foreach (var appearance in _appearances)
+        {
+            string appearanceColor;
+            switch (appearance.AppearanceType)
+            {
+                case AppearanceType.Speaking:
+                    appearanceColor = "blue";
+                    break;
+                case AppearanceType.Streaming:
+                    appearanceColor = "green";
+                    break;
+                case AppearanceType.Other:
+                    appearanceColor = "lightGray";
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown appearance type: {appearance.AppearanceType}");
+            }
+            <li class="appearance" style="border-left-color: @appearanceColor;">
+
+                <div>
+                    <span class="apperanceLocation">@appearance.Location</span>
+                    @if (appearance.IncludesTime)
+                    {
+                        <span class="apperanceTime">@appearance.Time.ToLocalTime()</span>
+                    }
+                    <div class="apperanceDescription">@appearance.Description</div>
+                </div>
+                @if (appearance.ImageUrl != null)
+                {
+                    <img src="@appearance.ImageUrl" class="appearanceImage" alt="@appearance.Location" />
+                }
+            </li>
+        }
+    }
+</ul>
+
+@code {
+    IEnumerable<Appearance>? _appearances = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _appearances = _appearanceService.GetNextMonthsAppearances(CancellationToken).ToBlockingEnumerable(CancellationToken);
+
+        await Task.CompletedTask;
+    }
+}

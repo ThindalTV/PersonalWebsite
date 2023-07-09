@@ -4,9 +4,17 @@
     flex-direction: column;
 }
 
-main {
-    flex: 1;
+header {
+    background-size: 100% 30rem;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(0deg, #3a0647 0%, #3a0647 100%);
 }
+
+main {
+    margin-top: 5rem;
+}
+
+
 
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);

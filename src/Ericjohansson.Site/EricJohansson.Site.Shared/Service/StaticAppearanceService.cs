@@ -29,7 +29,7 @@ public class StaticAppearanceService : IAppearanceService
             {
                 yield break;
             }
-            yield return new Appearance((currentDate.Date + new TimeSpan(19, 30, 00)).ToUniversalTime(), includeTime, "https://www.vhv.rs/dpng/d/405-4055346_twitch-logo-png-transparent-background-twitch-logo-png.png", "Twitch", "Streaming");
+            yield return new Appearance((currentDate.Date + new TimeSpan(19, 30, 00)).ToUniversalTime(), includeTime, "https://www.vhv.rs/dpng/d/405-4055346_twitch-logo-png-transparent-background-twitch-logo-png.png", "Twitch", AppearanceType.Streaming, "Streaming");
             currentDate = currentDate.AddDays(7);
             includeTime = !includeTime;
         }

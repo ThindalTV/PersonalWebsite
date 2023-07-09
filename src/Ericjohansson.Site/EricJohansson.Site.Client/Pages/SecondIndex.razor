@@ -1,0 +1,41 @@
+﻿@page "/2"
+@layout SecondLayout
+
+@inherits CancellableComponentBase
+
+@using EricJohansson.Site.Shared.Blazor;
+@using Ericjohansson.Site.Client.Components.Layout
+@using EricJohansson.Site.Client.Components.Content
+
+<LayoutSetter>
+    <HeaderContent>
+        <PresentationHeader />
+    </HeaderContent>
+</LayoutSetter>
+
+<main id="content">
+    <section>
+        <h2>Where to find me</h2>
+        <Appearances />
+    </section>
+    <section>
+        <h2>Musings</h2>
+        <Musings />
+    </section>
+</main>
+
+<aside id="contributions">
+    <h2>My contributions</h2>
+
+    <h3>Nuget packages</h3>
+
+    <h3>Extensions</h3>
+
+    <h3>Other projects</h3>
+</aside>
+
+<footer>
+</footer>
+@code {
+
+}
