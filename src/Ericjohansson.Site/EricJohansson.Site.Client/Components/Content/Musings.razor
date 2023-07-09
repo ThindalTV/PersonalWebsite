@@ -1,7 +1,40 @@
-﻿@using EricJohansson.Site.Shared.Interfaces.Blog;
+﻿@using EricJohansson.Site.Shared.Blazor;
+@using EricJohansson.Site.Shared.Interfaces.Blog;
+@using EricJohansson.Site.Shared.Types.Blog;
 
 @namespace EricJohansson.Site.Client.Components.Content
 
-@code {
+@inherits CancellableComponentBase
+@inject IPostService _postService
+@if(_musingsList == null)
+{
+    <text>...</text>
+} else
+{
+    foreach( var musing in _musingsList)
+    {
+        <TelerikCard Class="musing">
+            @if (musing.ImageUrl != null)
+            {
+                <CardHeader>
+                    <CardImage Src="@musing.ImageUrl" />
+                </CardHeader>
+            }
+            <CardBody>
+                <CardTitle>@musing.Title</CardTitle>
+                @musing.Summary
+            </CardBody>
+        </TelerikCard>
+    }
+}
 
+@code {
+    IEnumerable<MusingListEntryDto>? _musingsList = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var post = await _postService.GetPost("1", CancellationToken);
+        _musingsList = _postService.GetLatestMusings(5, CancellationToken).ToBlockingEnumerable(CancellationToken);
+    }
 }
