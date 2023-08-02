@@ -6,10 +6,9 @@
     <div class="appearance" style="@($"border-left-color: {appearanceColor}");">
         <div>
             <span class="apperanceLocation">@Instance.Location</span>
-            @if (Instance.IncludesTime)
-            {
-                <span class="apperanceTime">@Instance.Time.ToLocalTime()</span>
-            }
+            <span class="apperanceTime">
+                @(Instance.IncludesTime ? Instance.Time.ToLocalTime() : Instance.Time.ToShortDateString())
+            </span>
             <div class="apperanceDescription">@Instance.Description</div>
         </div>
         @if (appearanceImage != null)
