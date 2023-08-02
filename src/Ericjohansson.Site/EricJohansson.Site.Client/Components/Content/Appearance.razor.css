@@ -1,14 +1,13 @@
-li {
-    margin: 1rem 0 1rem 0;
+.appearance {
+    display: grid;
+    grid-template-columns: 4fr 5rem;
     font-weight: bold;
     border-left: .75rem solid;
     border-radius: 5px;
     box-shadow: 0 9px 30px 5px rgba(153, 153, 153, 0.2);
-    padding: .7rem .7rem .7rem 1rem;
     position: relative;
+    padding: .7rem .7rem .7rem 1rem;
     height: 5rem;
-    display: grid;
-    grid-template-columns: 4fr 5rem;
 }
 
 .appearanceImage {

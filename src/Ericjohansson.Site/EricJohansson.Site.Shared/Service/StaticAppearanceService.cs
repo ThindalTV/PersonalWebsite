@@ -17,7 +17,6 @@ public class StaticAppearanceService : IAppearanceService
 
     public async IAsyncEnumerable<AppearanceDto> GetNextMonthsAppearances([EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
         var endDate = DateTime.Now.AddMonths(1);
         var tuesdayOffset = DateTime.Now.DayOfWeek - DayOfWeek.Tuesday;
 
@@ -30,7 +29,11 @@ public class StaticAppearanceService : IAppearanceService
             {
                 yield break;
             }
+            Thread.Sleep(1000);
+
+
             yield return new AppearanceDto((currentDate.Date + new TimeSpan(19, 30, 00)).ToUniversalTime(), includeTime, null, "Twitch", (AppearanceType)apperanceType, "Streaming");
+
             currentDate = currentDate.AddDays(7);
             includeTime = !includeTime;
             apperanceType++;

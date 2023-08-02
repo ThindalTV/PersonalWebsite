@@ -1,26 +1,31 @@
 @namespace EricJohansson.Site.Client.Components.Content
 @using EricJohansson.Site.Shared.Types.Schedule;
 
-<li class="appearance" style="@($"border-left-color: {appearanceColor}");">
-
-    <div>
-        <span class="apperanceLocation">@Instance.Location</span>
-        @if (Instance.IncludesTime)
+@if (Instance != null)
+{
+    <div class="appearance" style="@($"border-left-color: {appearanceColor}");">
+        <div>
+            <span class="apperanceLocation">@Instance.Location</span>
+            @if (Instance.IncludesTime)
+            {
+                <span class="apperanceTime">@Instance.Time.ToLocalTime()</span>
+            }
+            <div class="apperanceDescription">@Instance.Description</div>
+        </div>
+        @if (appearanceImage != null)
         {
-            <span class="apperanceTime">@Instance.Time.ToLocalTime()</span>
+            <img src="@appearanceImage" class="appearanceImage" alt="@Instance.Location" />
         }
-        <div class="apperanceDescription">@Instance.Description</div>
     </div>
-    @if (appearanceImage != null)
-    {
-        <img src="@appearanceImage" class="appearanceImage" alt="@Instance.Location" />
-    }
-</li>
+}
+else
+{
+    <text>Loading</text>
+}
 
 @code {
-    [Parameter]
-    [EditorRequired]
-    public AppearanceDto Instance { get; set; }
+    [Parameter, EditorRequired]
+    public AppearanceDto? Instance { get; set; }
 
     protected string? appearanceColor;
     protected string? appearanceImage = null;
@@ -28,7 +33,7 @@
     protected override async Task OnInitializedAsync()
     {
         ArgumentNullException.ThrowIfNull(Instance, nameof(Instance));
-        
+
 
         appearanceImage = Instance.ImageUrl;
         switch (Instance.AppearanceType)

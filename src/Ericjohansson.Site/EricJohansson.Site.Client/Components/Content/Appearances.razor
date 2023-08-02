@@ -5,6 +5,7 @@
 @namespace EricJohansson.Site.Client.Components.Content
 
 @inherits CancellableComponentBase
+
 @inject IAppearanceService _appearanceService
 
 <ul>
@@ -12,8 +13,8 @@
     {
         @for (int i = 0; i < 10; i++)
         {
-            <li>
-                <TelerikSkeleton ShapeType="@SkeletonShapeType.Rectangle" AnimationType="@SkeletonAnimationType.Wave" Height="50px" />
+            <li class="appearance">
+                <TelerikSkeleton ShapeType="@SkeletonShapeType.Circle" AnimationType="@SkeletonAnimationType.Wave" Height="5rem" />
             </li>
         }
     }
@@ -21,18 +22,25 @@
     {
         @foreach (var appearance in _appearances)
         {
-            <Appearance Instance="@appearance" />
+            <li class="appearance">
+                <Appearance Instance="@appearance" />
+            </li>
         }
     }
 </ul>
 
 @code {
-    IEnumerable<AppearanceDto>? _appearances = null;
+    protected List<AppearanceDto>? _appearances;
 
     protected override async Task OnInitializedAsync()
     {
-        _appearances = _appearanceService.GetNextMonthsAppearances(CancellationToken).ToBlockingEnumerable(CancellationToken);
-
-        await Task.CompletedTask;
+        await Task.Delay(1000);
+        _appearances = new List<AppearanceDto>();
+        foreach (var apperance in _appearanceService.GetNextMonthsAppearances(CancellationToken).ToBlockingEnumerable(CancellationToken))
+        {
+            _appearances.Add(apperance);
+            await Task.Delay(1000);
+            StateHasChanged();
+        }
     }
 }

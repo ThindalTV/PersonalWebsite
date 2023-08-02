@@ -1,3 +1,9 @@
 ul {
     list-style: none;
 }
+
+li {
+    margin: 1rem 0 1rem 0;
+    height: 6rem;
+}
+
