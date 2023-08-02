@@ -17,4 +17,8 @@
     <ProjectReference Include="..\EricJohansson.Site.Shared\EricJohansson.Site.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\logos\" />
+  </ItemGroup>
+
 </Project>

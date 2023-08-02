@@ -5,17 +5,17 @@ using System.Runtime.CompilerServices;
 namespace EricJohansson.Site.Shared.Service;
 public class StaticAppearanceService : IAppearanceService
 {
-    public Task<Appearance?> GetAppearanceAsync(string id, CancellationToken cancellationToken)
+    public Task<AppearanceDto?> GetAppearanceAsync(string id, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public IAsyncEnumerable<Appearance> GetAppearancesAsync(int year, int month, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public IAsyncEnumerable<AppearanceDto> GetAppearancesAsync(int year, int month, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public async IAsyncEnumerable<Appearance> GetNextMonthsAppearances([EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<AppearanceDto> GetNextMonthsAppearances([EnumeratorCancellation] CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         var endDate = DateTime.Now.AddMonths(1);
@@ -23,15 +23,19 @@ public class StaticAppearanceService : IAppearanceService
 
         var currentDate = DateTime.Now.AddDays(-tuesdayOffset);
         bool includeTime = true;
+        int apperanceType = 1;
         while(currentDate < endDate) 
         {
             if(cancellationToken.IsCancellationRequested)
             {
                 yield break;
             }
-            yield return new Appearance((currentDate.Date + new TimeSpan(19, 30, 00)).ToUniversalTime(), includeTime, "https://www.vhv.rs/dpng/d/405-4055346_twitch-logo-png-transparent-background-twitch-logo-png.png", "Twitch", AppearanceType.Streaming, "Streaming");
+            yield return new AppearanceDto((currentDate.Date + new TimeSpan(19, 30, 00)).ToUniversalTime(), includeTime, null, "Twitch", (AppearanceType)apperanceType, "Streaming");
             currentDate = currentDate.AddDays(7);
             includeTime = !includeTime;
+            apperanceType++;
+            if (apperanceType > 3)
+                apperanceType = 1;
         }
 
         

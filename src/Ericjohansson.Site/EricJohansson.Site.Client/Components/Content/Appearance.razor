@@ -1,0 +1,52 @@
+@namespace EricJohansson.Site.Client.Components.Content
+@using EricJohansson.Site.Shared.Types.Schedule;
+
+<li class="appearance" style="@($"border-left-color: {appearanceColor}");">
+
+    <div>
+        <span class="apperanceLocation">@Instance.Location</span>
+        @if (Instance.IncludesTime)
+        {
+            <span class="apperanceTime">@Instance.Time.ToLocalTime()</span>
+        }
+        <div class="apperanceDescription">@Instance.Description</div>
+    </div>
+    @if (appearanceImage != null)
+    {
+        <img src="@appearanceImage" class="appearanceImage" alt="@Instance.Location" />
+    }
+</li>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public AppearanceDto Instance { get; set; }
+
+    protected string? appearanceColor;
+    protected string? appearanceImage = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ArgumentNullException.ThrowIfNull(Instance, nameof(Instance));
+        
+
+        appearanceImage = Instance.ImageUrl;
+        switch (Instance.AppearanceType)
+        {
+            case AppearanceType.Speaking:
+                appearanceColor = "blue";
+                break;
+            case AppearanceType.Streaming:
+                appearanceColor = "green";
+                appearanceImage ??= "/img/Logos/twitch.svg";
+                break;
+            case AppearanceType.Other:
+                appearanceColor = "lightGray";
+                break;
+            default:
+                throw new InvalidOperationException($"Unknown appearance type: {Instance.AppearanceType}");
+        }
+
+        await Task.CompletedTask;
+    }
+}

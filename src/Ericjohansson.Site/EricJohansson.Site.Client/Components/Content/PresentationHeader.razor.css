@@ -8,7 +8,6 @@
     #showcase section {
         background-color: #FFF;
         border-radius: 10px;
-        border-top: 6px solid #F00;
         box-shadow: 0 0 6px 1px rgba(34, 34, 34, 0.1);
         padding: 1rem 3rem 3rem 3rem;
         position: relative;
@@ -35,8 +34,8 @@
     }
 
         #socials li img {
-            max-height: 2rem;
-            max-width: 2rem;
+            height: 2rem;
+            width: 2rem;
         }
 
 #titles li {

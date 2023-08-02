@@ -9,7 +9,7 @@
 }
 
 #head {
-    background-color: purple;
+    background-image: linear-gradient(to bottom right, #ec7dde, #82eda8);
     align-content: center;
     text-align: center;
     min-height: 300px;

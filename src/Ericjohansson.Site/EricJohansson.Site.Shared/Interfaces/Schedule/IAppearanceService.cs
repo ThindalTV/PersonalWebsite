@@ -3,7 +3,7 @@
 namespace EricJohansson.Site.Shared.Interfaces.Schedule;
 public interface IAppearanceService
 {
-    IAsyncEnumerable<Appearance> GetNextMonthsAppearances(CancellationToken cancellationToken);
-    IAsyncEnumerable<Appearance> GetAppearancesAsync(int year, int month, CancellationToken cancellationToken);
-    Task<Appearance?> GetAppearanceAsync(string id, CancellationToken cancellationToken);
+    IAsyncEnumerable<AppearanceDto> GetNextMonthsAppearances(CancellationToken cancellationToken);
+    IAsyncEnumerable<AppearanceDto> GetAppearancesAsync(int year, int month, CancellationToken cancellationToken);
+    Task<AppearanceDto?> GetAppearanceAsync(string id, CancellationToken cancellationToken);
 }
