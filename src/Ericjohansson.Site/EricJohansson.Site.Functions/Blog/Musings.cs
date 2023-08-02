@@ -6,35 +6,35 @@ using Microsoft.Extensions.Logging;
 
 namespace EricJohansson.Site.Functions.Blog
 {
-    public class Posts
+    public class Musings
     {
         private readonly ILogger _logger;
 
-        public Posts(ILoggerFactory loggerFactory)
+        public Musings(ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<Posts>();
+            _logger = loggerFactory.CreateLogger<Musings>();
         }
 
-        [Function("Post/{id}")]
-        public HttpResponseData GetPost([HttpTrigger("get")] HttpRequestData req, string id)
+        [Function("Musing/{id}")]
+        public HttpResponseData GetMusing([HttpTrigger("get")] HttpRequestData req, string id)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             //response.Headers.Add("Content-Type", "application/json; charset=utf-8");
 
-            var post = new Post()
+            var musing = new FullMusingDto()
             {
-                Content = "Post with id " + id,
-                Title = "Post from function"
+                Content = "Musing with id " + id,
+                Title = "Musing from function"
             };
 
-            response.WriteAsJsonAsync(post);
+            response.WriteAsJsonAsync(musing);
             return response;
         }
 
-        [Function("Posts")]
-        public HttpResponseData GetPosts([HttpTrigger("get")] HttpRequestData req, int offset, int count)
+        [Function("Musings")]
+        public HttpResponseData GetMusings([HttpTrigger("get")] HttpRequestData req, int offset, int count)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 

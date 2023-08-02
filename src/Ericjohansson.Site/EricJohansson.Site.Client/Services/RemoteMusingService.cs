@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 
 namespace Ericjohansson.Site.Client.Services;
 
-public class RemotePostService : IPostService
+public class RemoteMusingService : IMusingService
 {
     private readonly HttpClient _httpClient;
 
-    public RemotePostService(IHttpClientFactory httpClientFactory)
+    public RemoteMusingService(IHttpClientFactory httpClientFactory)
     {
         _httpClient = httpClientFactory.CreateClient("APIClient");
     }
@@ -29,23 +29,23 @@ public class RemotePostService : IPostService
 
     }
 
-    public async Task<Post?> GetPost(string id, CancellationToken cancellationToken)
+    public async Task<FullMusingDto?> GetFullMusing(string id, CancellationToken cancellationToken)
     {
-        var ret = await _httpClient.GetFromJsonAsync<Post>($"Post/{id}", cancellationToken);
+        var ret = await _httpClient.GetFromJsonAsync<FullMusingDto>($"Musing/{id}", cancellationToken);
         return ret;
     }
 
-    public async IAsyncEnumerable<Post> GetPostsAsync(int year, int month, [EnumeratorCancellation] CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
+    public async IAsyncEnumerable<FullMusingDto> GetMusings(int year, int month, [EnumeratorCancellation] CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
     {
         await Task.CompletedTask;
         yield break;
     }
 
-    public async IAsyncEnumerable<Post> GetPostsPageAsync(int page, int pageSize, [EnumeratorCancellation]CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
+    public async IAsyncEnumerable<FullMusingDto> GetMusingsPage(int page, int pageSize, [EnumeratorCancellation]CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
     {
         await Task.CompletedTask;
         if(cancellationToken.IsCancellationRequested)
             yield break;
-        yield return new Post();
+        yield return new FullMusingDto();
     }
 }

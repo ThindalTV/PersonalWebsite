@@ -9,41 +9,41 @@ using System.Threading.Tasks;
 
 namespace EricJohansson.Site.Shared.Service
 {
-    public class StaticPostService : IPostService
+    public class StaticMusingService : IMusingService
     {
-        public async Task<Post?> GetPost(string id, CancellationToken cancellationToken)
+        public async Task<FullMusingDto?> GetFullMusing(string id, CancellationToken cancellationToken)
         {
             await Task.CompletedTask;
-            return new Post()
+            return new FullMusingDto()
             {
-                Slug = $"TestPost-Single",
+                Slug = $"TestMusing-Single",
                 Created = new DateTime(2022, 09, 27),
                 Posted = new DateOnly(2022, 09, 27),
-                Title = $"Static post - Single",
-                Short = "This is a static post short",
-                Content = "This is a static post content",
-                ContentRaw = "{ text: 'This is a static post content'}",
-                Tags = new string[] { "static", "test", "post" },
+                Title = $"Static Musing - Single",
+                Short = "This is a static musing short",
+                Content = "This is a static musing content",
+                ContentRaw = "{ text: 'This is a static musing content'}",
+                Tags = new string[] { "static", "test", "musing" },
                 ImageUrl = null
             };
         }
 
-        public async IAsyncEnumerable<Post> GetPostsPageAsync(int page, int pageSize, [EnumeratorCancellation] CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
+        public async IAsyncEnumerable<FullMusingDto> GetMusingsPage(int page, int pageSize, [EnumeratorCancellation] CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
         {
             for (int i = 0; i < pageSize; i++) {
                 if (cancellationToken.IsCancellationRequested)
                     yield break;
 
-                yield return new Post()
+                yield return new FullMusingDto()
                 {
-                    Slug = $"TestPost{i}",
+                    Slug = $"TestMusing{i}",
                     Created = new DateTime(2022, 09, 27),
                     Posted = new DateOnly(2022, 09, 27),
-                    Title = $"Static post {i}",
-                    Short = "This is a static post short",
-                    Content = "This is a static post content",
-                    ContentRaw = "{ text: 'This is a static post content'}",
-                    Tags = new string[] { "static", "test", "post" },
+                    Title = $"Static musing {i}",
+                    Short = "This is a static musing short",
+                    Content = "This is a static musing content",
+                    ContentRaw = "{ text: 'This is a static musing content'}",
+                    Tags = new string[] { "static", "test", "musing" },
                     ImageUrl = null
                 };
 
@@ -51,23 +51,23 @@ namespace EricJohansson.Site.Shared.Service
             }
         }
 
-        public async IAsyncEnumerable<Post> GetPostsAsync(int year, int month, [EnumeratorCancellation]CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
+        public async IAsyncEnumerable<FullMusingDto> GetMusings(int year, int month, [EnumeratorCancellation]CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
         {
             for (int i = 1; i < 11; i++)
             {
                 if (cancellationToken.IsCancellationRequested)
                     yield break;
 
-                yield return new Post()
+                yield return new FullMusingDto()
                 {
-                    Slug = $"TestPost{i}",
+                    Slug = $"TestMusing{i}",
                     Created = new DateTime(year, month, i),
                     Posted = new DateOnly(year, month, i),
-                    Title = $"Static post {i}",
-                    Short = "This is a static post short",
-                    Content = "This is a static post content",
-                    ContentRaw = "{ text: 'This is a static post content'}",
-                    Tags = new string[] { "static", "test", "post" },
+                    Title = $"Static musing {i}",
+                    Short = "This is a static musing short",
+                    Content = "This is a static musing content",
+                    ContentRaw = "{ text: 'This is a static musing content'}",
+                    Tags = new string[] { "static", "test", "musing" },
                     ImageUrl = null
                 };
 

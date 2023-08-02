@@ -10,7 +10,7 @@ namespace EricJohansson.Site.Shared
         {
             collection.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAdress) });
 
-            collection.AddScoped<IPostService, StaticPostService>();
+            collection.AddScoped<IMusingService, StaticMusingService>();
             collection.AddScoped<IAppearanceService, StaticAppearanceService>();
 
             return collection;

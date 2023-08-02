@@ -5,7 +5,7 @@
 @namespace EricJohansson.Site.Client.Components.Content
 
 @inherits CancellableComponentBase
-@inject IPostService _postService
+@inject IMusingService _musingService
 @if(_musingsList == null)
 {
     <text>...</text>
@@ -34,7 +34,7 @@
     protected override async Task OnInitializedAsync()
     {
 
-        var post = await _postService.GetPost("1", CancellationToken);
-        _musingsList = _postService.GetLatestMusings(5, CancellationToken).ToBlockingEnumerable(CancellationToken);
+        var musing = await _musingService.GetFullMusing("1", CancellationToken);
+        _musingsList = _musingService.GetLatestMusings(5, CancellationToken).ToBlockingEnumerable(CancellationToken);
     }
 }
