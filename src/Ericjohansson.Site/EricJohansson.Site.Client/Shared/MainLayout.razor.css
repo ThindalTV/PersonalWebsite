@@ -8,12 +8,27 @@
     background-color: #F7F7F7;
 }
 
-#head {
+header {
     background-image: linear-gradient(to bottom right, #ec7dde, #82eda8);
-    align-content: center;
-    text-align: center;
+    justify-content: center;
     min-height: 300px;
+    display: flex;
 }
+
+#head {
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 40rem;
+    height: 6.5rem;
+    margin-top: 3rem;
+    border-radius: 5px;
+    box-shadow: 0 9px 30px 5px rgba(153, 153, 153, 0.2);
+    text-align: center;
+    font-size: 62pt;
+    line-height: 6.5rem;
+
+}
+
+
 
 main {
     margin-left: 10rem;

@@ -16,5 +16,4 @@
   <ItemGroup>
     <ProjectReference Include="..\EricJohansson.Site.Shared\EricJohansson.Site.Shared.csproj" />
   </ItemGroup>
-
 </Project>

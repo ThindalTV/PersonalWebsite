@@ -1,0 +1,7 @@
+ul {
+    list-style-type: none;
+}
+
+ul.twoLine li {
+    height: 64px;
+}

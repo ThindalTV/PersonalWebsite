@@ -14,9 +14,33 @@
 </LayoutSetter>
 
 <main id="content">
-    <section>
+    <section style="padding-left: 3rem; padding-right: 3rem;">
         <h2>Where to find me</h2>
+
         <Appearances />
+
+        @*<ul style="list-style-type: none; margin-left: 0; padding-left: 0; margin-right: 0; width: 100%;">
+            @foreach(var i in items) {
+            <li style="margin-left: 0; display: flex; flex-direction: row; padding-bottom: 1rem; padding-top: 1rem;">
+                <img src="img/Logos/Github-Octocat.svg" style="height: 64px;" />
+                <div style="flex-grow: 1; margin-left: 2rem;">
+                    <span style="font-weight: bold;" class="title">@i.Name</span><br />
+                    <span style="color: #666;"class="description">@i.Description</span>
+                </div>
+                <div style="display: flex; margin-left: 2rem; align-items: center;">
+                    @i.Name
+                </div>
+            </li>
+            }
+        </ul>
+
+        <ItemList Items="@items">
+            <ItemTemplate>
+               a
+                Here's a thing: b<br/>
+                Here's another thing: context.Description
+            </ItemTemplate>
+        </ItemList>*@
     </section>
     <section>
         <h2>Musings</h2>
@@ -37,5 +61,11 @@
 <footer>
 </footer>
 @code {
-
+        /*_appearances = new List<AppearanceDto>();
+        foreach (var apperance in _appearanceService.GetNextMonthsAppearances(CancellationToken).ToBlockingEnumerable(CancellationToken))
+        {
+            _appearances.Add(apperance);
+            await Task.Delay(1000);
+            StateHasChanged();
+        }*/
 }

@@ -9,33 +9,66 @@
 @inject IAppearanceService _appearanceService
 
 <ul>
-    @if (_appearances == null)
+    @foreach (AppearanceDto appearance in _appearances)
     {
-        @for (int i = 0; i < 10; i++)
+        string imageUrl = appearance.ImageUrl;
+        DateTime localTime = appearance.Time;
+        if (String.IsNullOrWhiteSpace(imageUrl))
         {
-            <li class="appearance">
-                <TelerikSkeleton ShapeType="@SkeletonShapeType.Circle" AnimationType="@SkeletonAnimationType.Wave" Height="5rem" />
-            </li>
+            switch (appearance.AppearanceType)
+            {
+                case AppearanceType.Streaming:
+                    imageUrl = "/img/Icons/Streaming.svg";
+                    break;
+                case AppearanceType.Speaking:
+                    imageUrl = "/img/Icons/Speaking.svg";
+                    break;
+                case AppearanceType.Appearance:
+                    imageUrl = "/img/Icons/Appearance.svg";
+                    break;
+                case AppearanceType.Attending:
+                    imageUrl = "/img/Icons/Attending.svg";
+                    break;
+                case AppearanceType.Other:
+                    imageUrl = "/img/Icons/Other.svg";
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown appearance type: {appearance.AppearanceType}");
+            }
         }
-    }
-    else
-    {
-        @foreach (var appearance in _appearances)
-        {
-            <li class="appearance">
-                <Appearance Instance="@appearance" />
-            </li>
-        }
+
+        <li>
+            <img src="@imageUrl" class="icon" alt="@appearance.Location" />
+            <div class="info">
+                <h3 class="title">@appearance.Location</h3>
+                <span class="description">@appearance.Description</span>
+
+            </div>
+            <div class="sidebar">
+                <div class="when">
+                    @localTime.ToLocalTime().ToShortDateString()
+                    @if (appearance.IncludesTime)
+                    {
+                        <br />
+                        @appearance.Time.ToLocalTime().ToString("HH:mm")
+                    }
+                </div>
+                @if (!String.IsNullOrWhiteSpace(appearance.Url))
+                {
+                    string urlText = appearance.UrlText ?? appearance.Url;
+                    <a href="@appearance.Url" target="_blank" rel="noopener" class="url">@urlText</a>
+                }
+            </div>
+        </li>
     }
 </ul>
 
 @code {
-    protected List<AppearanceDto>? _appearances;
+    protected List<AppearanceDto>? _appearances = new List<AppearanceDto>();
 
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(1000);
-        _appearances = new List<AppearanceDto>();
         foreach (var apperance in _appearanceService.GetNextMonthsAppearances(CancellationToken).ToBlockingEnumerable(CancellationToken))
         {
             _appearances.Add(apperance);

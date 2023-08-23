@@ -1,6 +1,7 @@
 ﻿using EricJohansson.Site.Shared.Interfaces.Schedule;
 using EricJohansson.Site.Shared.Types.Schedule;
 using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
 
 namespace EricJohansson.Site.Shared.Service;
 public class StaticAppearanceService : IAppearanceService
@@ -23,24 +24,54 @@ public class StaticAppearanceService : IAppearanceService
         var currentDate = DateTime.Now.AddDays(-tuesdayOffset);
         bool includeTime = true;
         int apperanceType = 1;
-        while(currentDate < endDate) 
+        var streamDesc = $@"
+Every tuesday at 19:30 CET, you can find me streaming
+C# development on Twitch.";
+
+        var streamingAppearance = new AppearanceDto(
+             Time: DateTime.Now,
+             IncludesTime: includeTime,
+             ImageUrl: null,
+             Location: "Twitch",
+             Url: "https://www.twitch.tv/thindal",
+             UrlText: "Twitch",
+             AppearanceType: AppearanceType.Streaming,
+             Description: streamDesc);
+        while (currentDate < endDate)
         {
-            if(cancellationToken.IsCancellationRequested)
+            if (cancellationToken.IsCancellationRequested)
             {
                 yield break;
             }
             Thread.Sleep(1000);
 
-
-            yield return new AppearanceDto((currentDate.Date + new TimeSpan(19, 30, 00)).ToUniversalTime(), includeTime, null, "Twitch", (AppearanceType)apperanceType, "Streaming");
+            if (apperanceType == 1) // Streaming
+            {
+                yield return streamingAppearance with
+                {
+                    Time = (currentDate.Date + new TimeSpan(19, 30, 00)).ToUniversalTime()
+                };
+            }
+            else // Everything else
+            {
+                yield return new AppearanceDto(
+                    Time: (currentDate.Date + new TimeSpan(19, 30, 00)).ToUniversalTime(),
+                    IncludesTime: includeTime,
+                    ImageUrl: null,
+                    Location: ((AppearanceType)apperanceType).ToString(),
+                    Url: apperanceType < 3 ? "https://www.google.com/" : null,
+                    UrlText: apperanceType < 2 ? "Google" : null,
+                    AppearanceType: (AppearanceType)apperanceType,
+                    Description: ((AppearanceType)apperanceType).ToString());
+            }
 
             currentDate = currentDate.AddDays(7);
             includeTime = !includeTime;
             apperanceType++;
-            if (apperanceType > 3)
+            if (apperanceType > 5)
                 apperanceType = 1;
         }
 
-        
+
     }
 }

@@ -1,0 +1,23 @@
+﻿@typeparam TItem
+<h3>List</h3>
+@if (Items != null)
+{
+    <ul class="twoLine">
+        @foreach (var item in Items)
+        {
+            <li>@ItemTemplate(item)</li>
+        }
+    </ul>
+}
+
+
+@code {
+    [Parameter, EditorRequired]
+    public RenderFragment<TItem> ItemTemplate { get; set; } = null!;
+
+    [Parameter]
+    public IEnumerable<TItem>? Items { get; set; }
+
+    [Parameter]
+    public ItemListMode? Mode { get; set; } = ItemListMode.OneLine;
+}
