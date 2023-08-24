@@ -2,6 +2,7 @@
 public record MusingListEntryDto(
     string Id,
     DateOnly Posted,
+    string Url,
     string Slug,
     string? ImageUrl,
     string Title,

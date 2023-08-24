@@ -1,0 +1,9 @@
+﻿@page "/musing/{Slug}"
+<h3>Musing</h3>
+
+Welcome to musing @Slug
+
+@code {
+    [Parameter]
+    public string Slug { get; set; }
+}

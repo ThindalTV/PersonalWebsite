@@ -81,7 +81,19 @@ namespace EricJohansson.Site.Shared.Service
             {
                 if (token.IsCancellationRequested) yield break;
                 string num = (i+1).ToString();
-                yield return new MusingListEntryDto(num, DateOnly.FromDateTime(DateTime.Now), $"Musings{num}", null, $"Musings {num} title", $"Musings {num} summary");
+                string? imageUrl = null;
+                if(i % 2 == 0)
+                {
+                    imageUrl = "https://via.placeholder.com/1500";
+                }
+                yield return new MusingListEntryDto(
+                        Id:num, 
+                        Posted: DateOnly.FromDateTime(DateTime.Now), 
+                        Url: $"musings/{num}",
+                        Slug: $"Musings{num}", 
+                        ImageUrl: imageUrl, 
+                        Title: $"Musings {num} title", 
+                        Summary: $"Musings {num} summary");
             }
             await Task.CompletedTask;
         }
