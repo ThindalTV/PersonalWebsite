@@ -9,7 +9,4 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddServices("http://localhost:7215/api/");
 
-// Register the Telerik services.
-builder.Services.AddTelerikBlazor();
-
 await builder.Build().RunAsync();
