@@ -15,16 +15,13 @@ li {
 }
 
 div.sidebar {
-    display: flex;
-    flex-direction: column;
+    text-align: right;
+    margin-right: 0;
+    margin-left: 2rem;
+    width: 5rem;
 }
 
 div.when {
-    /*flex-grow: 1;*/
-    margin-left: 2rem;
-    margin-right: 0;
-    text-align: right;
-    min-width: 6rem;
 }
 
 div.info {
@@ -32,6 +29,7 @@ div.info {
     margin-left: 1rem;
     display: flex;
     flex-direction: column;
+    border-bottom: 1px solid rgba(0,0,0,.05);
 }
 
 img.icon {

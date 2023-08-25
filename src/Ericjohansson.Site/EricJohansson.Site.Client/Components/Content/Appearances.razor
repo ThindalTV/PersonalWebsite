@@ -57,7 +57,7 @@
                     @if (!String.IsNullOrWhiteSpace(appearance.Url))
                     {
                         string urlText = appearance.UrlText ?? appearance.Url;
-                        <a href="@appearance.Url" target="_blank" rel="noopener" class="url">@urlText</a>
+                        <a href="@appearance.Url" target="_blank" rel="noopener" class="url">@appearance.UrlText</a>
                     }
                 </div>
             </li>
