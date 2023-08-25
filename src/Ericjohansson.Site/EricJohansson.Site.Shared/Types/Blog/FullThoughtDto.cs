@@ -1,6 +1,6 @@
 ﻿namespace EricJohansson.Site.Shared.Types.Blog
 {
-    public record FullMusingDto
+    public record FullThoughtDto
     {
         public string? Slug { get; init; }
         public DateOnly Posted { get; init; }

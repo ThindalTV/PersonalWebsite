@@ -1,24 +1,19 @@
 ﻿using EricJohansson.Site.Shared.Interfaces.Blog;
 using EricJohansson.Site.Shared.Types.Blog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EricJohansson.Site.Shared.Service
 {
-    public class StaticMusingService : IMusingService
+    public class StaticThoughtsService : IThoughtsService
     {
-        public async Task<FullMusingDto?> GetFullMusing(string id, CancellationToken cancellationToken)
+        public async Task<FullThoughtDto?> GetFullThought(int year, string slug, CancellationToken cancellationToken)
         {
             await Task.CompletedTask;
-            return new FullMusingDto()
+            return new FullThoughtDto()
             {
-                Slug = $"TestMusing-Single",
-                Created = new DateTime(2022, 09, 27),
-                Posted = new DateOnly(2022, 09, 27),
+                Slug = slug,
+                Created = new DateTime(year, 09, 27),
+                Posted = new DateOnly(year, 09, 27),
                 Title = $"Static Musing - Single",
                 Short = "This is a static musing short",
                 Content = "This is a static musing content",
@@ -28,13 +23,13 @@ namespace EricJohansson.Site.Shared.Service
             };
         }
 
-        public async IAsyncEnumerable<FullMusingDto> GetMusingsPage(int page, int pageSize, [EnumeratorCancellation] CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
+        public async IAsyncEnumerable<FullThoughtDto> GetThoughtsPage(int page, int pageSize, [EnumeratorCancellation] CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
         {
             for (int i = 0; i < pageSize; i++) {
                 if (cancellationToken.IsCancellationRequested)
                     yield break;
 
-                yield return new FullMusingDto()
+                yield return new FullThoughtDto()
                 {
                     Slug = $"TestMusing{i}",
                     Created = new DateTime(2022, 09, 27),
@@ -51,14 +46,14 @@ namespace EricJohansson.Site.Shared.Service
             }
         }
 
-        public async IAsyncEnumerable<FullMusingDto> GetMusings(int year, int month, [EnumeratorCancellation]CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
+        public async IAsyncEnumerable<FullThoughtDto> GetThoughts(int year, int month, [EnumeratorCancellation]CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
         {
             for (int i = 1; i < 11; i++)
             {
                 if (cancellationToken.IsCancellationRequested)
                     yield break;
 
-                yield return new FullMusingDto()
+                yield return new FullThoughtDto()
                 {
                     Slug = $"TestMusing{i}",
                     Created = new DateTime(year, month, i),
@@ -75,7 +70,7 @@ namespace EricJohansson.Site.Shared.Service
             }
         }
 
-        public async IAsyncEnumerable<MusingListEntryDto> GetLatestMusings(int amount, [EnumeratorCancellation]CancellationToken token)
+        public async IAsyncEnumerable<ThoughtsListEntryDto> GetLatestThoughts(int amount, [EnumeratorCancellation]CancellationToken token)
         {
             for(int i = 0; i < amount; i++)
             {
@@ -86,7 +81,7 @@ namespace EricJohansson.Site.Shared.Service
                 {
                     imageUrl = "https://via.placeholder.com/1500";
                 }
-                yield return new MusingListEntryDto(
+                yield return new ThoughtsListEntryDto(
                         Id:num, 
                         Posted: DateOnly.FromDateTime(DateTime.Now), 
                         Url: $"musings/{num}",

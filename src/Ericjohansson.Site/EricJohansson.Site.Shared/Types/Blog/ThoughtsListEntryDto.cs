@@ -1,5 +1,5 @@
 ﻿namespace EricJohansson.Site.Shared.Types.Blog;
-public record MusingListEntryDto(
+public record ThoughtsListEntryDto(
     string Id,
     DateOnly Posted,
     string Url,

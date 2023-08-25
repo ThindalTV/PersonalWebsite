@@ -1,7 +1,16 @@
+using EricJohansson.Site.Shared.Interfaces.Blog;
+using EricJohansson.Site.Shared.Service;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
-    .Build();
+var builder = new HostBuilder()
+    .ConfigureFunctionsWorkerDefaults();
+    
+builder.ConfigureServices(services =>
+{
+    services.AddScoped<IThoughtsService, StaticThoughtsService>();
+});
 
-host.Run();
+var host = builder.Build();
+
+await host.RunAsync();
