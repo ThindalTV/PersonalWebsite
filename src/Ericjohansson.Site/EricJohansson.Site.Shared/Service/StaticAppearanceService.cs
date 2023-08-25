@@ -43,7 +43,6 @@ C# development on Twitch.";
             {
                 yield break;
             }
-            Thread.Sleep(1000);
 
             if (apperanceType == 1) // Streaming
             {

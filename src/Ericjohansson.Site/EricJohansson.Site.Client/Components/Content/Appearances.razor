@@ -69,11 +69,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //await Task.Delay(1000);
-        foreach (var apperance in _appearanceService.GetNextMonthsAppearances(CancellationToken).ToBlockingEnumerable(CancellationToken))
+        await foreach (var apperance in _appearanceService.GetNextMonthsAppearances(CancellationToken))
         {
             _appearances.Add(apperance);
-            //await Task.Delay(1000);
             StateHasChanged();
             await Task.CompletedTask;
         }
