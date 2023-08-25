@@ -14,30 +14,41 @@ li {
     padding-top: 1rem;
 }
 
-div.sidebar {
+    li:last-child {
+        padding-bottom: 0;
+    }
+
+        li:last-child div.info {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+li div.sidebar {
     text-align: right;
     margin-right: 0;
     margin-left: 2rem;
     width: 5rem;
 }
 
-div.when {
+li .sidebar div.when {
 }
 
-div.info {
+li div.info {
     flex-grow: 1;
     margin-left: 1rem;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid rgba(0,0,0,.05);
+    padding-bottom: 1rem;
+    min-height: 64px;
 }
 
-img.icon {
+li img.icon {
     width: 64px;
     height: 64px;
 }
 
-h3.title {
+li .info h3.title {
     margin-top: 0;
     font-weight: bold;
     line-height: inherit;
@@ -45,12 +56,11 @@ h3.title {
     margin-bottom: inherit;
 }
 
-span.description {
+li .info span.description {
     color: #666;
-    flex-grow: 1;
 }
 
-a.url {
+li .sidebar a.url {
     color: gray;
     text-align: right;
     width: 100%;
