@@ -1,9 +1,22 @@
-﻿@page "/musing/{Slug}"
+﻿@page "/musings/{year:int}/{*Slug}"
+
+@using EricJohansson.Site.Shared.Blazor;
+@using Ericjohansson.Site.Client.Components.Layout;
+@using EricJohansson.Site.Client.Components.Content;
+
 <h3>Musing</h3>
+
+<LayoutSetter>
+    <HeaderContent>
+    </HeaderContent>
+</LayoutSetter>
 
 Welcome to musing @Slug
 
 @code {
+    [Parameter]
+    public int Year { get; set; }
+
     [Parameter]
     public string Slug { get; set; }
 }

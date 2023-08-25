@@ -22,25 +22,10 @@ else
             @if (!String.IsNullOrWhiteSpace(musing.Url))
             {
                 <div style="text-align: right;">
-                    <NavLink href="@($"/musing/{musing.Slug}/")">Tell me more...</NavLink>
-                    @*<a @onclick=(_navigationManager.NavigateTo($"/musing/{musing.Slug}/")>Tell me more...</a><br />*@
-                    <!--<a href="@($"/musing/{musing.Slug}/")">Tell me more...</a></div>-->
+                    <NavLink href="@($"/musings/{musing.Posted.Year}/{musing.Slug}/")">Tell me more...</NavLink>
                 </div>
             }
         </section>
-        @*
-        <TelerikCard Class="musing">
-            @if (musing.ImageUrl != null)
-            {
-                <CardHeader>
-                    <CardImage Src="@musing.ImageUrl" />
-                </CardHeader>
-            }
-            <CardBody>
-                <CardTitle>@musing.Title</CardTitle>
-                @musing.Summary
-            </CardBody>
-        </TelerikCard>*@
     }
 }
 
