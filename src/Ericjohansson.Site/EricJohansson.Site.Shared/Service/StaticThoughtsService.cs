@@ -14,11 +14,11 @@ namespace EricJohansson.Site.Shared.Service
                 Slug = slug,
                 Created = new DateTime(year, 09, 27),
                 Posted = new DateOnly(year, 09, 27),
-                Title = $"Static Musing - Single",
-                Short = "This is a static musing short",
-                Content = "This is a static musing content",
-                ContentRaw = "{ text: 'This is a static musing content'}",
-                Tags = new string[] { "static", "test", "musing" },
+                Title = $"Static Thought - Single",
+                Short = "This is a static Thought short",
+                Content = "This is a static Thought content",
+                ContentRaw = "{ text: 'This is a static Thought content'}",
+                Tags = new string[] { "static", "test", "Thought" },
                 ImageUrl = null
             };
         }
@@ -31,14 +31,14 @@ namespace EricJohansson.Site.Shared.Service
 
                 yield return new FullThoughtDto()
                 {
-                    Slug = $"TestMusing{i}",
+                    Slug = $"TestThought{i}",
                     Created = new DateTime(2022, 09, 27),
                     Posted = new DateOnly(2022, 09, 27),
-                    Title = $"Static musing {i}",
-                    Short = "This is a static musing short",
-                    Content = "This is a static musing content",
-                    ContentRaw = "{ text: 'This is a static musing content'}",
-                    Tags = new string[] { "static", "test", "musing" },
+                    Title = $"Static Thought {i}",
+                    Short = "This is a static Thought short",
+                    Content = "This is a static Thought content",
+                    ContentRaw = "{ text: 'This is a static Thought content'}",
+                    Tags = new string[] { "static", "test", "Thought" },
                     ImageUrl = null
                 };
 
@@ -55,14 +55,14 @@ namespace EricJohansson.Site.Shared.Service
 
                 yield return new FullThoughtDto()
                 {
-                    Slug = $"TestMusing{i}",
+                    Slug = $"TestThought{i}",
                     Created = new DateTime(year, month, i),
                     Posted = new DateOnly(year, month, i),
-                    Title = $"Static musing {i}",
-                    Short = "This is a static musing short",
-                    Content = "This is a static musing content",
-                    ContentRaw = "{ text: 'This is a static musing content'}",
-                    Tags = new string[] { "static", "test", "musing" },
+                    Title = $"Static Thought {i}",
+                    Short = "This is a static Thought short",
+                    Content = "This is a static Thought content",
+                    ContentRaw = "{ text: 'This is a static Thought content'}",
+                    Tags = new string[] { "static", "test", "Thought" },
                     ImageUrl = null
                 };
 
@@ -81,14 +81,16 @@ namespace EricJohansson.Site.Shared.Service
                 {
                     imageUrl = "https://via.placeholder.com/1500";
                 }
+                var postDate = DateOnly.FromDateTime(DateTime.Now);
+                var slug = $"thought{i}";
                 yield return new ThoughtsListEntryDto(
                         Id:num, 
-                        Posted: DateOnly.FromDateTime(DateTime.Now), 
-                        Url: $"musings/{num}",
-                        Slug: $"Musings{num}", 
+                        Posted: postDate, 
+                        Url: $"thoughts/{postDate.Year}/{slug}",
+                        Slug: slug, 
                         ImageUrl: imageUrl, 
-                        Title: $"Musings {num} title", 
-                        Summary: $"Musings {num} summary");
+                        Title: $"Thought {num} title", 
+                        Summary: $"Thought {num} summary");
             }
             await Task.CompletedTask;
         }

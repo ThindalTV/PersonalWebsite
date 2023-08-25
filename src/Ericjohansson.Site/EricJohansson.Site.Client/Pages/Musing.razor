@@ -1,17 +1,17 @@
-﻿@page "/musings/{year:int}/{*Slug}"
+﻿@page "/Thoughts/{year:int}/{*Slug}"
 
 @using EricJohansson.Site.Shared.Blazor;
 @using Ericjohansson.Site.Client.Components.Layout;
 @using EricJohansson.Site.Client.Components.Content;
 
-<h3>Musing</h3>
+<h3>Thought</h3>
 
 <LayoutSetter>
     <HeaderContent>
     </HeaderContent>
 </LayoutSetter>
 
-Welcome to musing @Slug
+Welcome to Thought @Slug
 
 @code {
     [Parameter]

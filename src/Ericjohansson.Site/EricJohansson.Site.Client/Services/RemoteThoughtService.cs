@@ -16,7 +16,7 @@ public class RemoteThoughtService : IThoughtsService
 
     public async IAsyncEnumerable<ThoughtsListEntryDto> GetLatestThoughts(int amount, [EnumeratorCancellation] CancellationToken token)
     {
-        var url = $"MusingsList/{amount}";
+        var url = $"ThoughtsList/{amount}";
         var listReturn = await _httpClient.GetFromJsonAsync<IAsyncEnumerable<ThoughtsListEntryDto>>(url, token) ?? throw new HttpRequestException("Couldn't reach server");
         await foreach (var m in listReturn)
         {
@@ -31,7 +31,7 @@ public class RemoteThoughtService : IThoughtsService
 
     public async Task<FullThoughtDto?> GetFullThought(int year, string slug, CancellationToken cancellationToken)
     {
-        return await _httpClient.GetFromJsonAsync<FullThoughtDto>($"Musing/{year}/{slug}", cancellationToken);
+        return await _httpClient.GetFromJsonAsync<FullThoughtDto>($"Thought/{year}/{slug}", cancellationToken);
     }
 
     public async IAsyncEnumerable<FullThoughtDto> GetThoughts(int year, int month, [EnumeratorCancellation] CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)

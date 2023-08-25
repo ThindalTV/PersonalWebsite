@@ -50,7 +50,7 @@ else
         return attributes;
     }
 
-    protected void NavigateMusing(ThoughtsListEntryDto thought)
+    protected void NavigateThought(ThoughtsListEntryDto thought)
     {
         _navigationManager.NavigateTo($"/thought/{thought.Posted.Year}/{thought.Slug}/");
     }
