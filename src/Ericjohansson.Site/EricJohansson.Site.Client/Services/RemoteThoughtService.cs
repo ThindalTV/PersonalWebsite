@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 
 namespace Ericjohansson.Site.Client.Services;
-
+/*
 public class RemoteThoughtService : IThoughtsService
 {
     private readonly HttpClient _httpClient;
@@ -12,6 +12,12 @@ public class RemoteThoughtService : IThoughtsService
     public RemoteThoughtService(IHttpClientFactory httpClientFactory)
     {
         _httpClient = httpClientFactory.CreateClient("APIClient");
+    }
+
+    public async Task<int> GetThoughtCount(CancellationToken cancellationToken)
+    {
+        var url = "ThoughtCount";
+        return await _httpClient.GetFromJsonAsync<int>(url, cancellationToken);
     }
 
     public async IAsyncEnumerable<ThoughtsListEntryDto> GetLatestThoughts(int amount, [EnumeratorCancellation] CancellationToken token)
@@ -26,7 +32,6 @@ public class RemoteThoughtService : IThoughtsService
             }
             yield return m;
         }
-
     }
 
     public async Task<FullThoughtDto?> GetFullThought(int year, string slug, CancellationToken cancellationToken)
@@ -48,3 +53,4 @@ public class RemoteThoughtService : IThoughtsService
         yield return new FullThoughtDto();
     }
 }
+*/

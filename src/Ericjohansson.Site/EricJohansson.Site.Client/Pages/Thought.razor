@@ -1,0 +1,87 @@
+﻿@page "/Thought/{year:int}/{*Slug}"
+@inherits CancellableComponentBase
+
+@using EricJohansson.Site.Shared.Blazor;
+@using EricJohansson.Site.Shared.Interfaces.Blog;
+@using EricJohansson.Site.Shared.Types.Blog;
+@using Ericjohansson.Site.Client.Components.Layout;
+@using EricJohansson.Site.Client.Components.Content;
+
+@inject IThoughtsService _thoughtService
+@inject NavigationManager _navigationManager
+
+<LayoutSetter>
+    <HeaderContent>
+    </HeaderContent>
+</LayoutSetter>
+
+<h2>@_thought.Title</h2>
+
+@_thought.Content
+
+<div id="pager">
+    <div>
+    @if (_previousThought != null)
+    {
+            <a @onclick="() => NavigatePrevious()">《《 Prev</a>
+    }
+    </div>
+    <div>
+    @if (_nextThought != null)
+    {
+            <a @onclick="() => NavigateNext()">Next 》》</a>
+    }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Year { get; set; }
+
+    [Parameter]
+    public string? Slug { get; set; }
+
+    FullThoughtDto? _thought = null;
+
+    ThoughtsListEntryDto? _previousThought = null;
+    ThoughtsListEntryDto? _nextThought = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Slug = System.Net.WebUtility.UrlDecode(Slug);
+
+        if (String.IsNullOrWhiteSpace(Slug))
+        {
+            _navigationManager.NavigateTo("/Thought/");
+            return;
+        }
+
+        _thought = await _thoughtService.GetFullThought(Year, Slug, CancellationToken);
+        if (_thought == null)
+        {
+            _navigationManager.NavigateTo("/Thought/");
+            return;
+        }
+
+        _previousThought = await _thoughtService.GetPreviousThought(_thought.Id, CancellationToken);
+        _nextThought = await _thoughtService.GetNextThought(_thought.Id, CancellationToken);
+
+        await base.OnInitializedAsync();
+    }
+
+    protected void NavigateNext()
+    {
+        if (_nextThought != null)
+        {
+            _navigationManager.NavigateTo(_nextThought.Url);
+        }
+    }
+
+protected void NavigatePrevious()
+    {
+        if (_previousThought != null)
+        {
+            _navigationManager.NavigateTo(_previousThought.Url);
+        }
+    }
+}

@@ -1,9 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
+@inject NavigationManager _navigationManager;
+
 <div id="fullContainer">
     <header>
         <h1 id="head">
-            Eric Johansson
+            @if (_navigationManager.ToBaseRelativePath(_navigationManager.Uri) == "")
+            {
+                <text>Eric Johansson</text>
+            }
+            else
+            {
+                <a href="/">Eric Johansson</a>
+            }
         </h1>
     </header>
 

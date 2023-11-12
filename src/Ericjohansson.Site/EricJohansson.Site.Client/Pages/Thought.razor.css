@@ -1,0 +1,10 @@
+#pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#pager > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

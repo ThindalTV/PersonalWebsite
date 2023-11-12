@@ -1,10 +1,10 @@
 ﻿@using EricJohansson.Site.Shared.Blazor;
 @using EricJohansson.Site.Shared.Interfaces.Blog;
 @using EricJohansson.Site.Shared.Types.Blog;
+@inherits CancellableComponentBase
 
 @namespace EricJohansson.Site.Client.Components.Content
 
-@inherits CancellableComponentBase
 @inject IThoughtsService _thoughtsService
 @inject NavigationManager _navigationManager
 
@@ -16,21 +16,31 @@ else
 {
     foreach (var thought in _thoughtsList)
     {
-        <section class="thought" @attributes="SetAttributes(thought)">
+        <section class="thought box" @attributes="SetAttributes(thought)">
             <h3>@thought.Title</h3>
             @thought.Summary
             @if (!String.IsNullOrWhiteSpace(thought.Url))
             {
                 <div style="text-align: right;">
-                    <NavLink href="@($"/thought/{thought.Posted.Year}/{thought.Slug}/")">Tell me more...</NavLink>
+                    <a @onclick="() => NavigateThought(thought)">Tell me more...</a>
                 </div>
             }
+        </section>
+    }
+    @if (showMoreThoughts)
+    {
+        <section class="thought box">
+            <h3>More thoughts</h3>
+            <div style="text-align: right;">
+                <a @onclick='() => _navigationManager.NavigateTo("/Thoughts")'>Show me more...</a>
+            </div>
         </section>
     }
 }
 
 @code {
-    IEnumerable<ThoughtsListEntryDto>? _thoughtsList = null;
+    private IEnumerable<ThoughtsListEntryDto>? _thoughtsList = null;
+    private bool showMoreThoughts = false;
 
     protected Dictionary<string, object> SetAttributes(ThoughtsListEntryDto thought)
     {
@@ -52,12 +62,12 @@ else
 
     protected void NavigateThought(ThoughtsListEntryDto thought)
     {
-        _navigationManager.NavigateTo($"/thought/{thought.Posted.Year}/{thought.Slug}/");
+        _navigationManager.NavigateTo($"/Thought/{thought.Posted?.Year}/{thought.Slug}/");
     }
 
     protected override async Task OnInitializedAsync()
     {
-        //var thought = await _thoughtsService.GetFullThought("1", CancellationToken);
-        _thoughtsList = _thoughtsService.GetLatestThoughts(5, CancellationToken).ToBlockingEnumerable(CancellationToken);
+        _thoughtsList = _thoughtsService.GetLatestThoughts(3, CancellationToken).ToBlockingEnumerable(CancellationToken);
+        showMoreThoughts = await _thoughtsService.GetThoughtCount(CancellationToken) > 3;
     }
 }

@@ -31,6 +31,8 @@ namespace EricJohansson.Site.Functions.Blog
 
             var thought = new FullThoughtDto()
             {
+                Id = "1",
+                Slug = slug,
                 Content = $"Thought with slug {slug} from the year {year}",
                 Title = "Thought from function"
             };

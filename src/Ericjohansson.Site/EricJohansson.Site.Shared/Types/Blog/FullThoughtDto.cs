@@ -2,8 +2,9 @@
 {
     public record FullThoughtDto
     {
-        public string? Slug { get; init; }
-        public DateOnly Posted { get; init; }
+        public required string Id { get; init; }
+        public required string Slug { get; init; }
+        public DateOnly? Posted { get; init; }
         public DateTime Created { get; init; }
         public string? ImageUrl { get; init; }
         public string? Title { get; init; }

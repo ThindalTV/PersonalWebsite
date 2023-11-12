@@ -22,13 +22,27 @@ h1, h2, h3, h4, h5 {
     margin-top: 5rem;
 }
 
-    #content > div > section {
+    #content > div > section, .box {
         background-color: #FFF;
         border-radius: 10px;
         box-shadow: 0 0 6px 1px rgba(34, 34, 34, 0.1);
         position: relative;
         padding: 1rem 3rem 3rem 3rem;
     }
+
+a {
+    text-decoration: none;
+    color: #FD856A;
+}
+
+h1#head a {
+    color: #000;
+}
+
+.box + .box {
+    margin-top: 2rem !important;
+}
+
 
 /* Blazor setup styles */
 
