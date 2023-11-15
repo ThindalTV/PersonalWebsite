@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EricJohansson.Site.Shared",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EricJohansson.Site.Functions", "EricJohansson.Site.Functions\EricJohansson.Site.Functions.csproj", "{D9179EFA-B365-4C36-86C2-396F7F7C0296}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EricJohansson.se", "EricJohansson.se\EricJohansson.se\EricJohansson.se.csproj", "{D25C39BE-35DC-4746-A086-706BC03C7ADD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EricJohansson.se", "EricJohansson.se\EricJohansson.se\EricJohansson.se.csproj", "{D25C39BE-35DC-4746-A086-706BC03C7ADD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EricJohansson.se.Client", "EricJohansson.se\EricJohansson.se.Client\EricJohansson.se.Client.csproj", "{11ED37DA-9A45-413A-BB1C-97214D665DA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EricJohansson.se.Client", "EricJohansson.se\EricJohansson.se.Client\EricJohansson.se.Client.csproj", "{11ED37DA-9A45-413A-BB1C-97214D665DA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

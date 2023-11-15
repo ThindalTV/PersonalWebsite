@@ -32,6 +32,6 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(EricJohansson.se.Client.Pages.Thoughts).Assembly); // Need a class from the client lib
+    .AddAdditionalAssemblies(typeof(EricJohansson.se.Client._Imports).Assembly); // Need a class from the client lib
 
 app.Run();

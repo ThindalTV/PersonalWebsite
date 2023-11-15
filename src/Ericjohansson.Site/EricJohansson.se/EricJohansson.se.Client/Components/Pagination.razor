@@ -1,0 +1,24 @@
+﻿<h3>Pagination</h3>
+@rendermode InteractiveAuto
+
+@inject ILogger<Pagination> _logger;
+
+<section class="pagination">
+    <button class="previous" disabled>&lt;</button>
+    @for(int pageNum = 1; pageNum< TotalItems/PageSize; pageNum++)
+    {
+        <button class="page @(pageNum == Page ? "selected" : "")" @onclick="() => PageClick(pageNum)">@pageNum</button>
+    }
+    <button class="next">&gt;</button>
+</section>
+
+@code {
+        [Parameter, EditorRequired] public int? Page { get; set; }
+        [Parameter, EditorRequired] public int? PageSize { get; set; }
+        [Parameter, EditorRequired] public int? TotalItems { get; set; }
+        [Parameter, EditorRequired] public EventCallback<int> PageChanged { get; set; }
+
+        EventCallback PageClick(int pageNum) {
+            _logger.LogInformation($"Page clicked: {pageNum}");
+            return EventCallback.Factory.Create(this, () => PageChanged.InvokeAsync(pageNum)); }
+}

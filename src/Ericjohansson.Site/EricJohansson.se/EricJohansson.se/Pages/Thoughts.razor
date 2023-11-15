@@ -1,0 +1,38 @@
+﻿@page "/Thoughts/{page:int?}"
+
+@using Microsoft.AspNetCore.Components.Web.Virtualization;
+@using EricJohansson.Site.Shared.Interfaces.Blog;
+@using EricJohansson.Site.Shared.Types.Blog;
+@using EricJohansson.Site.Shared.Support;
+
+@inherits CancellableComponentBase;
+
+@inject IThoughtsService _thoughtsService;
+@inject ILogger<Thoughts> _logger
+
+    <EricJohansson.se.Client.Components.Pagination Page="@Page" PageSize="@pageSize" TotalItems="500" PageChanged='(pageNum) => _logger.LogInformation($"Changed page to {pageNum}")' />
+
+@foreach (var thought in _thoughts)
+{
+    <section class="thought box">
+        <h3>@thought.Title</h3>
+        @thought.Content
+    </section>
+}
+@code {
+    [Parameter]
+    public int? Page { get; set; }
+
+    private const int pageSize = 10;
+
+    protected List<FullThoughtDto> _thoughts = new List<FullThoughtDto>();
+
+    protected override Task OnInitializedAsync()
+    {
+        if (Page == null) Page = 1;
+
+        _thoughts = _thoughtsService.GetThoughts((Page.Value - 1) * pageSize, pageSize, CancellationToken.None).ToBlockingEnumerable().ToList();
+
+        return base.OnInitializedAsync();
+    }
+}

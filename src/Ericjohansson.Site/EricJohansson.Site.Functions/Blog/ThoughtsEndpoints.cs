@@ -22,22 +22,15 @@ namespace EricJohansson.Site.Functions.Blog
         }
 
         [Function("GetThought")]
-        public HttpResponseData GetThought([HttpTrigger("get", Route= "Thought/{year:int}/{*slug}")] HttpRequestData req, int year, string slug)
+        public async Task<HttpResponseData> GetThought([HttpTrigger("get", Route= "Thought/{year:int}/{*slug}")] HttpRequestData req, int year, string slug, CancellationToken cancellationToken)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
             var response = req.CreateResponse(HttpStatusCode.OK);
-            //response.Headers.Add("Content-Type", "application/json; charset=utf-8");
 
-            var thought = new FullThoughtDto()
-            {
-                Id = "1",
-                Slug = slug,
-                Content = $"Thought with slug {slug} from the year {year}",
-                Title = "Thought from function"
-            };
+            var thought = await _thoughtsService.GetFullThought(year, slug, cancellationToken);
 
-            response.WriteAsJsonAsync(thought);
+            await response.WriteAsJsonAsync(thought);
             return response;
         }
 

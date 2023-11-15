@@ -17,12 +17,8 @@
         </h1>
     </header>
 
-    <SectionOutlet SectionName="Header"></SectionOutlet>
-    @if (HeaderFragment != null)
-    {
-        @HeaderFragment
-    }
-
+    <SectionOutlet SectionName="Header" />
+    <SectionContent SectionName="Header"><br /></SectionContent>
     <CascadingValue Value="this">
         <main>
             @Body
@@ -33,11 +29,4 @@
 
 
 @code {
-    private RenderFragment? HeaderFragment;
-
-    public void SetHeader(RenderFragment? header)
-    {
-        HeaderFragment = header;
-        StateHasChanged();
-    }
 }
