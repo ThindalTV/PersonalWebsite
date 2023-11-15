@@ -1,23 +1,44 @@
 ﻿using EricJohansson.Site.Shared.Interfaces.Schedule;
 using EricJohansson.Site.Shared.Types.Schedule;
 using System.Runtime.CompilerServices;
-using System.Runtime.ConstrainedExecution;
 
 namespace EricJohansson.Site.Shared.Service;
 public class StaticAppearanceService : IAppearanceService
 {
-    public Task<AppearanceDto?> GetAppearanceAsync(string id, CancellationToken cancellationToken)
+    public async Task<AppearanceDto?> GetAppearanceAsync(string id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await Task.CompletedTask;
+
+        return new AppearanceDto(
+            Time: DateTime.Now,
+            IncludesTime: true,
+            ImageUrl: null,
+            Location: "Mock Location",
+            Url: "https://www.example.com/",
+            UrlText: "Example",
+            AppearanceType: AppearanceType.Other,
+            Description: "Mock Description");
     }
 
-    public IAsyncEnumerable<AppearanceDto> GetAppearancesAsync(int year, int month, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<AppearanceDto> GetAppearancesAsync(int year, int month, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await Task.CompletedTask;
+
+        yield return new AppearanceDto(
+            Time: DateTime.Now,
+            IncludesTime: true,
+            ImageUrl: null,
+            Location: "Mock Location",
+            Url: "https://www.example.com/",
+            UrlText: "Example",
+            AppearanceType: AppearanceType.Other,
+            Description: "Mock Description");
     }
 
     public async IAsyncEnumerable<AppearanceDto> GetNextMonthsAppearances([EnumeratorCancellation] CancellationToken cancellationToken)
     {
+        await Task.CompletedTask;
+
         var endDate = DateTime.Now.AddMonths(1);
         var tuesdayOffset = DateTime.Now.DayOfWeek - DayOfWeek.Tuesday;
 

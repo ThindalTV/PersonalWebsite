@@ -1,35 +1,29 @@
 ﻿@page "/Thought/{year:int}/{*Slug}"
-@inherits CancellableComponentBase
 
-@using EricJohansson.Site.Shared.Blazor;
 @using EricJohansson.Site.Shared.Interfaces.Blog;
 @using EricJohansson.Site.Shared.Types.Blog;
-@using Ericjohansson.Site.Client.Components.Layout;
-@using EricJohansson.Site.Client.Components.Content;
+@using EricJohansson.Site.Shared.Support;
 
-@inject IThoughtsService _thoughtService
-@inject NavigationManager _navigationManager
+@inherits CancellableComponentBase;
 
-<LayoutSetter>
-    <HeaderContent>
-    </HeaderContent>
-</LayoutSetter>
+@inject IThoughtsService _thoughtService;
+@inject NavigationManager _navigationManager;
 
-<h2>@_thought.Title</h2>
+<h2>@_thought?.Title</h2>
 
-@_thought.Content
+@_thought?.Content
 
 <div id="pager">
     <div>
     @if (_previousThought != null)
     {
-            <a @onclick="() => NavigatePrevious()">《《 Prev</a>
+            <a href="@_previousThought.Url">《《 Prev</a>
     }
     </div>
     <div>
     @if (_nextThought != null)
     {
-            <a @onclick="() => NavigateNext()">Next 》》</a>
+            <a href="@_nextThought.Url">Next 》》</a>
     }
     </div>
 </div>
@@ -39,9 +33,9 @@
     public int Year { get; set; }
 
     [Parameter]
-    public string? Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
-    FullThoughtDto? _thought = null;
+    FullThoughtDto? _thought;
 
     ThoughtsListEntryDto? _previousThought = null;
     ThoughtsListEntryDto? _nextThought = null;

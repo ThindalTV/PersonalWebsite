@@ -1,9 +1,8 @@
-﻿@using EricJohansson.Site.Shared.Blazor;
-@using EricJohansson.Site.Shared.Interfaces.Blog;
+﻿@using EricJohansson.Site.Shared.Interfaces.Blog;
 @using EricJohansson.Site.Shared.Types.Blog;
-@inherits CancellableComponentBase
+@using EricJohansson.Site.Shared.Support;
 
-@namespace EricJohansson.Site.Client.Components.Content
+@inherits CancellableComponentBase;
 
 @inject IThoughtsService _thoughtsService
 @inject NavigationManager _navigationManager
@@ -22,7 +21,7 @@ else
             @if (!String.IsNullOrWhiteSpace(thought.Url))
             {
                 <div style="text-align: right;">
-                    <a @onclick="() => NavigateThought(thought)">Tell me more...</a>
+                    <a href="@thought.Url">Tell me more...</a>
                 </div>
             }
         </section>
@@ -32,7 +31,7 @@ else
         <section class="thought box">
             <h3>More thoughts</h3>
             <div style="text-align: right;">
-                <a @onclick='() => _navigationManager.NavigateTo("/Thoughts")'>Show me more...</a>
+                <a href="/Thoughts">Show me more...</a>
             </div>
         </section>
     }
@@ -58,11 +57,6 @@ else
         }
 
         return attributes;
-    }
-
-    protected void NavigateThought(ThoughtsListEntryDto thought)
-    {
-        _navigationManager.NavigateTo($"/Thought/{thought.Posted?.Year}/{thought.Slug}/");
     }
 
     protected override async Task OnInitializedAsync()

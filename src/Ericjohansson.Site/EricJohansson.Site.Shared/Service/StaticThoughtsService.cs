@@ -1,7 +1,5 @@
 ﻿using EricJohansson.Site.Shared.Interfaces.Blog;
 using EricJohansson.Site.Shared.Types.Blog;
-using System;
-using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 
 namespace EricJohansson.Site.Shared.Service
@@ -13,8 +11,6 @@ namespace EricJohansson.Site.Shared.Service
         {
             _thoughts = new List<FullThoughtDto>();
 
-            int year = 2023;
-
             for( int i = 1; i < 501; i++)
             {
                 _thoughts.Add(new FullThoughtDto()
@@ -25,9 +21,10 @@ namespace EricJohansson.Site.Shared.Service
                     Posted = DateOnly.FromDateTime(DateTime.Now).AddDays(i),
                     Title = $"Static Thought - Single #{i}",
                     Short = $"This is a static Thought short #{i}",
+                    ShortRaw = $"{{ text: 'This is a static Thought short #{i}'}}",
                     Content = $"This is a static Thought content #{i}",
                     ContentRaw = $"{{ text: 'This is a static Thought content #{i}'}}",
-                    Tags = new string[] { "static", "test", "Thought" },
+                    Tags = ["static", "test", "Thought"],
                     ImageUrl = null
                 });
             }
@@ -41,7 +38,7 @@ namespace EricJohansson.Site.Shared.Service
         {
             await Task.CompletedTask;
 
-            return _thoughts.FirstOrDefault(t => t.Posted != null && t.Posted?.Year == year && t.Slug.ToLowerInvariant() == slug.ToLowerInvariant());
+            return _thoughts.FirstOrDefault(t => t.Posted != null && t.Posted?.Year == year && t.Slug.Equals(slug, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public async IAsyncEnumerable<FullThoughtDto> GetThoughtsPage(int page, int pageSize, [EnumeratorCancellation] CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
@@ -58,6 +55,8 @@ namespace EricJohansson.Site.Shared.Service
 
         public async IAsyncEnumerable<FullThoughtDto> GetThoughts(int startIndex, int count, [EnumeratorCancellation]CancellationToken cancellationToken, string? searchTerms = null, string[]? tags = null)
         {
+            await Task.CompletedTask;
+
             if (startIndex + count > _thoughts.Count)
                 count = _thoughts.Count - startIndex;
 
@@ -70,17 +69,18 @@ namespace EricJohansson.Site.Shared.Service
                 yield return thought;
 
             }
-            await Task.CompletedTask;
         }
 
         public async IAsyncEnumerable<ThoughtsListEntryDto> GetLatestThoughts(int amount, [EnumeratorCancellation]CancellationToken token)
         {
+            await Task.CompletedTask;
+
             var reversedThoughts = _thoughts.Where(t=>t.Posted != null).OrderBy(t=>t.Posted).ToList();
             for( int i = 0; i < amount && i < reversedThoughts.Count; i++)
             {
                 yield return new ThoughtsListEntryDto(Id: reversedThoughts[i].Id, 
                            Posted: reversedThoughts[i].Posted ?? DateOnly.FromDateTime(DateTime.Now), 
-                           Url: $"thoughts/{reversedThoughts[i].Posted?.Year}/{reversedThoughts[i].Slug}", 
+                           Url: $"Thought/{reversedThoughts[i].Posted?.Year}/{reversedThoughts[i].Slug}", 
                            Slug: reversedThoughts[i].Slug, 
                            ImageUrl: reversedThoughts[i].ImageUrl, 
                            Title: reversedThoughts[i].Title, 
@@ -98,6 +98,8 @@ namespace EricJohansson.Site.Shared.Service
             if(previousThought == null)
                 return null;
 
+            await Task.CompletedTask;
+
             return new ThoughtsListEntryDto(Id: previousThought.Id, 
                        Posted: previousThought.Posted, 
                        Url: $"Thought/{previousThought.Posted?.Year}/{previousThought.Slug}", 
@@ -109,6 +111,8 @@ namespace EricJohansson.Site.Shared.Service
 
         public async Task<ThoughtsListEntryDto?> GetNextThought(string currentThoughtId, CancellationToken cancellationToken)
         {
+            await Task.CompletedTask;
+
             var currentThought = _thoughts.FirstOrDefault(t => t.Id == currentThoughtId);
             if (currentThought == null)
                 return null;
@@ -129,13 +133,19 @@ namespace EricJohansson.Site.Shared.Service
         public async Task<bool> IsFirstThought(string thoughtId, CancellationToken cancellationToken)
         {
             await Task.CompletedTask;
-            return _thoughts.IndexOf(_thoughts.FirstOrDefault(t => t.Id == thoughtId)) == 0;
+            var thought = _thoughts.FirstOrDefault(t => t.Id == thoughtId);
+            if (thought == null)
+                return false;
+            return _thoughts.IndexOf(thought) == 0;
         }
 
         public async Task<bool> IsLastThought(string thoughtId, CancellationToken cancellationToken)
         {
             await Task.CompletedTask;
-            return _thoughts.IndexOf(_thoughts.FirstOrDefault(t => t.Id == thoughtId)) == _thoughts.Count - 1;
+            var thought = _thoughts.FirstOrDefault(t => t.Id == thoughtId);
+            if (thought == null)
+                return false;
+            return _thoughts.IndexOf(thought) == _thoughts.Count - 1;
         }
     }
 }

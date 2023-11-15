@@ -1,18 +1,17 @@
-﻿@using EricJohansson.Site.Shared.Blazor;
-@using EricJohansson.Site.Shared.Interfaces.Schedule;
+﻿@using EricJohansson.Site.Shared.Interfaces.Schedule;
 @using EricJohansson.Site.Shared.Types.Schedule;
+@using EricJohansson.Site.Shared.Support;
 
-@namespace EricJohansson.Site.Client.Components.Content
+@inherits CancellableComponentBase;
 
-@inherits CancellableComponentBase
+@inject IAppearanceService _appearanceService;
 
-@inject IAppearanceService _appearanceService
 <section style="padding-left: 3rem; padding-right: 3rem;">
     <h2>Where to find me</h2>
     <ul>
         @foreach (AppearanceDto appearance in _appearances)
         {
-            string imageUrl = appearance.ImageUrl;
+            string? imageUrl = appearance.ImageUrl;
             DateTime localTime = appearance.Time;
             if (String.IsNullOrWhiteSpace(imageUrl))
             {
@@ -65,7 +64,7 @@
     </ul>
 </section>
 @code {
-    protected List<AppearanceDto>? _appearances = new List<AppearanceDto>();
+    protected List<AppearanceDto> _appearances = new List<AppearanceDto>();
 
     protected override async Task OnInitializedAsync()
     {

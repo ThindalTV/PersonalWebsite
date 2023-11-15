@@ -1,20 +1,20 @@
 ﻿@page "/"
 
-@using EricJohansson.Site.Shared.Blazor;
-@using Ericjohansson.Site.Client.Components.Layout;
-@using EricJohansson.Site.Client.Components.Content;
+@using EricJohansson.Site.Client.Components.Content
+@using EricJohansson.se.Components.Lists;
+@using EricJohansson.Site.Shared.Support;
+@using Microsoft.AspNetCore.Components.Web;
+@using Microsoft.AspNetCore.Components.Sections;
 
-<LayoutSetter>
-    <HeaderContent>
-        <PresentationHeader />
-    </HeaderContent>
-</LayoutSetter>
+<SectionContent SectionName="Header">
+    <PresentationHeader />
+</SectionContent>
 
 <PageTitle>Eric Johansson</PageTitle>
 
 <main id="content">
     <div>
-        <Appearances />
+        <AppearanceList />
     </div>
     <div>
         <ThoughtList />

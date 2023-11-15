@@ -7,6 +7,6 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddServices("http://localhost:7215/api/");
+//builder.Services.AddServices("http://localhost:7215/api/");
 
 await builder.Build().RunAsync();
